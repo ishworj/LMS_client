@@ -5,23 +5,22 @@ import HomePage from "./pages/home/HomePage";
 import UserLayout from "./components/layout/UserLayout";
 import Signup from "./pages/auth/Signup";
 import Signin from "./pages/auth/Signin";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   return (
     <>
-      {/* public routes */}
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<DefaultLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/signin" element={<Signin />} />
+          <Route path="signup" element={<Signup />} />
+          <Route path="signin" element={<Signin />} />
         </Route>
-      </Routes>
 
-      {/* purivate routes */}
-      <Routes>
+        {/* Private Routes */}
         <Route path="/users" element={<UserLayout />}>
-          <Route index element={<HomePage />} />
+          <Route path="dashboard" element={<Dashboard />} />
         </Route>
       </Routes>
     </>
