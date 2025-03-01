@@ -26,9 +26,11 @@ const UserSigninForm = () => {
     });
 
     if (data.status == "success") {
-      sessionStorage.setItem("accessToken", data.accessToken);
-      localStorage.setItem("refreshToken", data.refreshToken);
-      navigate("/users/dashboard")
+      // update session storage for access
+      sessionStorage.setItem("accessJWT", data.accessToken);
+      // update the local storage for refresh
+      localStorage.setItem("refreshJWT", data.refreshToken);
+      navigate("/dashboard");
     }
   };
 

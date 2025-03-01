@@ -19,8 +19,8 @@ function App() {
         </Route>
 
         {/* Private Routes */}
-        <Route path="/users" element={<UserLayout />}>
-          <Route path="dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<DefaultLayout />}>
+          <Route index element={<Dashboard />} />
         </Route>
       </Routes>
     </>

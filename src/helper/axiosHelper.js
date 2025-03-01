@@ -2,11 +2,11 @@ import axios from "axios";
 
 const authEp = "http://localhost:8080/api/v1/auth"
 const getAccessJWT = () => {
-  return sessionStorage.getItem("accessToken");
+  return sessionStorage.getItem("accessJWT");
 };
 
 const getRefreshJWT = () => {
-  return localStorage.getItem("refreshToken");
+    return localStorage.getItem("refreshJWT");
 };
 export const apiProcessor = async ({ method, url, data, isPrivate ,isRefreshToken=false }) => {
   const headers = {
@@ -20,20 +20,25 @@ export const apiProcessor = async ({ method, url, data, isPrivate ,isRefreshToke
 
     if (error?.response?.data?.message == "jwt expired") {
       
-      const refreshData = await apiProcessor ({
-        method:"get",
-        url: authEp + "renew-jwt",
-        isPrivate:false,
-        isRefreshToken:true
-      })
+      const refreshData = await apiProcessor({
+        method: "get",
+        url: authEp + "/renew-jwt",
+        isPrivate: false,
+        isRefreshToken: true,
+      });
 
 
       if (refreshData && refreshData?.status == "success") {
-        sessionStorage.setItem("accessJWT",refreshData.accessToken)
+        await sessionStorage.setItem("accessJWT", refreshData.accesToken);
         
-       await  apiProcessor({
+      return await  apiProcessor({
           method,url,data,isPrivate
         })
+      }else{
+        return {
+          status:"error",
+          message:"Error renewing refresh token"
+        }
       }
 
 
