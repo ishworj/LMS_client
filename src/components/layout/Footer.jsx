@@ -21,11 +21,10 @@ const Footer = () => {
 
           <Col>
             <h5>find us here </h5>
-            <div class="embed-responsive embed-responsive-16by9">
+            <div className="embed-responsive embed-responsive-16by9">
               <iframe
-                class="embed-responsive-item"
+                className="embed-responsive-item"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3313.0663419029984!2d151.20139719678957!3d-33.86218110000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b12af90905962cb%3A0xa918cc35a9ad4ed1!2sVictorian%20Institute%20of%20Technology%20(VIT)!5e0!3m2!1sen!2sau!4v1740827106992!5m2!1sen!2sau"
-                allowfullscreen
               ></iframe>
             </div>
           </Col>
