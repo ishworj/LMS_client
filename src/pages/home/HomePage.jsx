@@ -1,12 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Carousel from "react-bootstrap/Carousel";
-import { Button } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { CustomCard } from "../../components/custom-card/CustomCard";
+import { useDispatch, useSelector } from "react-redux";
+import { apiProcessor } from "../../helper/axiosHelper";
+import { setBooks } from "../../slice/bookSlice.js";
+import { useEffect } from "react";
 
 const HomePage = () => {
+  const bookStore = useSelector((state) => state.books);
+  const [searchedBooks, setSearchBooks] = useState([]);
+
+  const dispatch = useDispatch();
+
+  const fetchBooks = async()=>{
+    const response = await apiProcessor({
+      method: "get",
+      url: "http://localhost:8080/api/v1/books?status=active",
+    });
+    
+    dispatch(setBooks(response.books))
+  }
+
+  useEffect(() => {
+   fetchBooks()
+  }, []);
+
+  useEffect(() => {
+    setSearchBooks(bookStore.books);
+  }, [bookStore.books]);
+
+  const handleOnSearch = (e) => {
+    const { value } = e.target;
+
+    setSearchBooks(
+      books.filter(({ title }) =>
+        title.toLowerCase().includes(value.toLowerCase())
+      )
+    );
+  };
   return (
-    <Container>
-      <Carousel className="mt-5">
+    <>
+      <Container>
+        <Row>
+          <Col className="d-flex justify-content-between mt-5">
+            <label htmlFor="">{searchedBooks.length} books found!</label>
+            <div>
+              <Form.Control
+                onChange={handleOnSearch}
+                placeholder="search by book name .. "
+              />
+            </div>
+          </Col>
+        </Row>
+        <hr />
+        <Row className="mb-4">
+          <Col className="d-flex gap-4 flex-wrap">
+            {searchedBooks.map(
+              (book) =>
+                book.status === "active" && (
+                  <Link key={book._id} to={"/book/" + book._id}>
+                    <CustomCard {...book} />
+                  </Link>
+                )
+            )}
+          </Col>
+        </Row>
+      </Container>
+
+      <Container>
+        <Row className="d-flex justify-content-center gap-3 position-absolute   bg-dark text-white">
+          <div>10 books found</div>
+        </Row>
+
+        {/* <Carousel className="mt-5">
         <Carousel.Item interval={3000}>
           <div className="d-flex align-items-center">
             <div className="d-flex flex-column p-5 w-25">
@@ -25,7 +94,7 @@ const HomePage = () => {
           </div>
         </Carousel.Item>
 
-        <Carousel.Item >
+        <Carousel.Item>
           <div className="d-flex align-items-center">
             <div className="w-75">
               <img
@@ -42,8 +111,9 @@ const HomePage = () => {
             </div>
           </div>
         </Carousel.Item>
-      </Carousel>
-    </Container>
+      </Carousel> */}
+      </Container>
+    </>
   );
 };
 
