@@ -6,8 +6,16 @@ import UserLayout from "./components/layout/UserLayout";
 import Signup from "./pages/auth/Signup";
 import Signin from "./pages/auth/Signin";
 import Dashboard from "./pages/dashboard/Dashboard";
+import BookLanding from "./pages/book/BookLanding";
+import { getAllBooksActions } from "./features/books/bookActions";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function App() {
+ const dispatch = useDispatch();
+    useEffect(() => {
+      dispatch(getAllBooksActions());
+    }, []);
   return (
     <>
       <Routes>
@@ -16,6 +24,7 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
+          <Route path="book/:bookid" element={<BookLanding />} />
         </Route>
 
         {/* Private Routes */}

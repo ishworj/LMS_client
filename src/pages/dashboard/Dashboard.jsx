@@ -9,10 +9,8 @@ const Dashboard = () => {
       method: "get",
       url: "http://localhost:8080/api/v1/auth",
       isPrivate: true,
-      isRefreshToken: false,
+      isRefreshToken: false,b
     });
-
-    console.log(data);
 
     if (data && data.status == "success") {
       setUser(data.userData);
@@ -30,7 +28,7 @@ const Dashboard = () => {
   return (
     <div>
       Dashboard
-      <div>
+      <div className="text-dark">
         {user?.fName}
         {user?.lName}
       </div>

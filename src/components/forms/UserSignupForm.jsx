@@ -4,6 +4,7 @@ import { userSignupInput } from "../../assets/form-data/UserAuthInput";
 import CustomInput from "../custom-input/CustomInput";
 import useForm from "../../hooks/useForm.js";
 import { apiProcessor } from "../../helper/axiosHelper.js";
+import { Link } from "react-router-dom";
 
 const UserSignupForm = () => {
   const { form, handleOnChange } = useForm({});
@@ -30,6 +31,9 @@ const UserSignupForm = () => {
           <CustomInput key={input.name} {...input} onChange={handleOnChange} />
         ))}
         <Button type="submit">Signup</Button>
+        <p>
+          Already have account ? <Link to="/signin">signin here</Link>
+        </p>
       </Form>
     </>
   );

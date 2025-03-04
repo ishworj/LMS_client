@@ -6,28 +6,16 @@ import { Link } from "react-router-dom";
 import { CustomCard } from "../../components/custom-card/CustomCard";
 import { useDispatch, useSelector } from "react-redux";
 import { apiProcessor } from "../../helper/axiosHelper";
-import { setBooks } from "../../slice/bookSlice.js";
+import { setBooks } from "../../features/books/bookSlice.js";
 import { useEffect } from "react";
+import { getAllBooksActions } from "../../features/books/bookActions.js";
 
 const HomePage = () => {
   const bookStore = useSelector((state) => state.books);
   const [searchedBooks, setSearchBooks] = useState([]);
 
   const dispatch = useDispatch();
-
-  const fetchBooks = async()=>{
-    const response = await apiProcessor({
-      method: "get",
-      url: "http://localhost:8080/api/v1/books?status=active",
-    });
-    
-    dispatch(setBooks(response.books))
-  }
-
-  useEffect(() => {
-   fetchBooks()
-  }, []);
-
+ 
   useEffect(() => {
     setSearchBooks(bookStore.books);
   }, [bookStore.books]);
@@ -36,14 +24,59 @@ const HomePage = () => {
     const { value } = e.target;
 
     setSearchBooks(
-      books.filter(({ title }) =>
+      bookStore.books.filter(({ title }) =>
         title.toLowerCase().includes(value.toLowerCase())
       )
     );
+
   };
   return (
     <>
       <Container>
+        <Row>
+          <Carousel className="mt-5">
+            <Carousel.Item interval={3000}>
+              <div className="d-flex align-items-center">
+                <div className="d-flex flex-column p-5 w-25">
+                  <h3 className="text-primary">Make it simple</h3>
+                  <p>
+                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                  </p>
+                  <Button>Discover More</Button>
+                </div>
+                <div className="w-75">
+                  <img
+                    className="d-block w-100"
+                    style={{ objectFit: "cover", maxHeight: "400px" }}
+                    src="https://prh.imgix.net/articles/secondarypicks20.jpg"
+                    alt="First slide"
+                  />
+                </div>
+              </div>
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <div className="d-flex align-items-center">
+                <div className="w-75">
+                  <img
+                    className="d-block w-100"
+                    style={{ objectFit: "cover", maxHeight: "400px" }}
+                    src="https://prh.imgix.net/articles/secondarypicks20.jpg"
+                    alt="Second slide"
+                  />
+                </div>
+                <div className="d-flex flex-column p-5 w-25">
+                  <h3 className="text-primary">Make it simple</h3>
+                  <p>
+                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                  </p>
+                  <Button>Discover More</Button>
+                </div>
+              </div>
+            </Carousel.Item>
+          </Carousel>
+        </Row>
+
         <Row>
           <Col className="d-flex justify-content-between mt-5">
             <label htmlFor="">{searchedBooks.length} books found!</label>
@@ -68,50 +101,6 @@ const HomePage = () => {
             )}
           </Col>
         </Row>
-      </Container>
-
-      <Container>
-        <Row className="d-flex justify-content-center gap-3 position-absolute   bg-dark text-white">
-          <div>10 books found</div>
-        </Row>
-
-        {/* <Carousel className="mt-5">
-        <Carousel.Item interval={3000}>
-          <div className="d-flex align-items-center">
-            <div className="d-flex flex-column p-5 w-25">
-              <h3 className="text-primary">Make it simple</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-              <Button>Discover More</Button>
-            </div>
-            <div className="w-75">
-              <img
-                className="d-block w-100"
-                style={{ objectFit: "cover", maxHeight: "400px" }}
-                src="https://prh.imgix.net/articles/secondarypicks20.jpg"
-                alt="First slide"
-              />
-            </div>
-          </div>
-        </Carousel.Item>
-
-        <Carousel.Item>
-          <div className="d-flex align-items-center">
-            <div className="w-75">
-              <img
-                className="d-block w-100"
-                style={{ objectFit: "cover", maxHeight: "400px" }}
-                src="https://prh.imgix.net/articles/secondarypicks20.jpg"
-                alt="Second slide"
-              />
-            </div>
-            <div className="d-flex flex-column p-5 w-25">
-              <h3 className="text-primary">Make it simple</h3>
-              <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-              <Button>Discover More</Button>
-            </div>
-          </div>
-        </Carousel.Item>
-      </Carousel> */}
       </Container>
     </>
   );
