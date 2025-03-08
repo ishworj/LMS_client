@@ -1,11 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import { GiBookshelf } from "react-icons/gi";
 import SearchModal from "../../modals/SearchModal.jsx";
 import React from "react";
 import { Button } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { resetUser } from "../../features/users/userSlice.js"
 
 const searchInputs = [
   {
@@ -16,7 +18,9 @@ const searchInputs = [
 
 export const Header = () => {
   const [modalShow, setModalShow] = React.useState(false);
-
+const { user } = useSelector((store) => store.userInfo);
+const dispatch = useDispatch();
+const navigate = useNavigate();
   return (
     <Navbar expand="lg" className="bg-light">
       <Container>
@@ -30,16 +34,43 @@ export const Header = () => {
               onClick={() => {
                 setModalShow(true);
               }}
-             variant="light" className="border border-3 h-50 ">search for key words </Button>
+              variant="light"
+              className="border border-3 h-50 "
+            >
+              search for key words{" "}
+            </Button>
+
             <Link className="nav-link d-flex align-items-center" to="/">
               <GiBookshelf className="me-1" />
               Home
             </Link>
-            <Link className="nav-link d-flex align-items-center" to="/signup">
-              <div className="bg-primary text-white p-2 fw-bold rounded">
-                Login / join
-              </div>
-            </Link>
+            {user ? (
+              <>
+                <Link className="nav-link" to="/dashboard">
+                  Dashboard
+                </Link>
+                <Link
+                  className="nav-link"
+                  onClick={() => {
+                    dispatch(resetUser());
+                    navigate("/");
+                  }}
+                >
+                  Logout
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  className="nav-link d-flex align-items-center"
+                  to="/signup"
+                >
+                  <div className="bg-primary text-white p-2 fw-bold rounded">
+                    Login / join
+                  </div>
+                </Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>

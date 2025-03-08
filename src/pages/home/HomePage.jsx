@@ -5,17 +5,12 @@ import { Button, Col, Form, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { CustomCard } from "../../components/custom-card/CustomCard";
 import { useDispatch, useSelector } from "react-redux";
-import { apiProcessor } from "../../helper/axiosHelper";
-import { setBooks } from "../../features/books/bookSlice.js";
 import { useEffect } from "react";
-import { getAllBooksActions } from "../../features/books/bookActions.js";
 
 const HomePage = () => {
   const bookStore = useSelector((state) => state.books);
   const [searchedBooks, setSearchBooks] = useState([]);
 
-  const dispatch = useDispatch();
- 
   useEffect(() => {
     setSearchBooks(bookStore.books);
   }, [bookStore.books]);
@@ -28,7 +23,6 @@ const HomePage = () => {
         title.toLowerCase().includes(value.toLowerCase())
       )
     );
-
   };
   return (
     <>
