@@ -4,10 +4,10 @@ import UserSigninForm from '../../components/forms/UserSigninForm';
 const Signin = () => {
    return (
      <div
-       className="d-flex justify-content-center align-items-center bg-dark"
+       className="d-flex justify-content-center align-items-center "
        style={{ minHeight: "100vh" }}
      >
-       <div className="bg-white ">
+       <div className="bg-white border rounded p-4">
          <UserSigninForm />
        </div>
      </div>

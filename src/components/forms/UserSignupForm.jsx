@@ -25,8 +25,8 @@ const UserSignupForm = () => {
   };
   return (
     <>
-      <div>UserSignupForm</div>
-      <Form onSubmit={handleOnSubmit}>
+      <Form onSubmit={handleOnSubmit} className="d-flex flex-column ">
+        <p>Signup now for amazing boooks</p>
         {userSignupInput.map((input) => (
           <CustomInput key={input.name} {...input} onChange={handleOnChange} />
         ))}
