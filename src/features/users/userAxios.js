@@ -13,7 +13,19 @@ export const loginApi = (loginObj) => {
   });
 };
 
-export const fetchAllUserDetailApi = () => {
+// export const fetchAllUserDetailApi = () => {
+//   const apiObj = {
+//     method: "get",
+//     url: authEP,
+//     isPrivate: true,
+//     isRefreshToken: false,
+//   };
+
+//   return apiProcessor(apiObj);
+// };
+
+// api to fetch user detail
+export const fetchUserDetailApi = () => {
   const apiObj = {
     method: "get",
     url: authEP,
@@ -21,8 +33,10 @@ export const fetchAllUserDetailApi = () => {
     isRefreshToken: false,
   };
 
+  console.log("FETCH USER API");
+
   return apiProcessor(apiObj);
-};
+}
 
 export const createNewUserApi = (newUserObj) => {
   const apiObj = {

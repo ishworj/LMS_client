@@ -7,6 +7,7 @@ const CustomInput = ({ label, ...rest }) => {
       className="my-3 d-flex justify-content-center "
       controlId="formBasicEmail"
     >
+      <Form.Label>{label}</Form.Label>
       <Form.Control {...rest} />
     </Form.Group>
   );

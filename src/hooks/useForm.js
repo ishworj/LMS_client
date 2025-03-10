@@ -1,6 +1,11 @@
 import { useState } from "react";
 const handleOnChange = (e, form, setForm) => {
-  const { name, value } = e.target;
+  let { name, value, checked, type } = e.target;
+
+  if (type === "checkbox") {
+    value = checked ? "active" : "inactive";
+  }
+
   setForm({
     ...form,
     [name]: value,
