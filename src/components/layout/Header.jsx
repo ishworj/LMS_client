@@ -44,7 +44,7 @@ const navigate = useNavigate();
               <GiBookshelf className="me-1" />
               Home
             </Link>
-            {user ? (
+            {user?._id?  (
               <>
                 <Link className="nav-link" to="/dashboard">
                   Dashboard

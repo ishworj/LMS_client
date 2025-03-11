@@ -14,6 +14,7 @@ import BookList from "./pages/book/BookList";
 import AddNewBook from "./pages/book/AddNewBook";
 import EditBook from "./pages/book/EditBook";
 import ProfileDetail from "./pages/profile/ProfileDetail";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
   }, []);
   return (
     <>
+      <ToastContainer />
       <Routes>
         {/* Public Routes */}
         <Route path="/" element={<DefaultLayout />}>
@@ -40,7 +42,7 @@ function App() {
         <Route path="admin/book/edit/:_id" element={<EditBook />} />
 
         {/* profile page */}
-        <Route path="/profile" element={<ProfileDetail/>}/>
+        <Route path="/profile" element={<ProfileDetail />} />
         {/* private routes  */}
         <Route path="/dashboard" element={<Dashboard />} />
         {/* <Route path="my-books" element={<MyBorrow />} /> */}

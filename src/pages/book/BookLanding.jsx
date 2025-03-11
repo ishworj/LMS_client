@@ -3,10 +3,9 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Nav, Row, Spinner, Tab, Tabs } from "react-bootstrap";
 // import { ReviewBlock } from "../../components/customCard/ReviewBlock";
-// import { Stars } from "../../components/stars/Stars";
-// import { borrowBookAction } from "../../features/borrows/borrowAction";
+import { Stars } from "../../components/stars/Stars";
+import { borrowBookAction } from "../../features/borrows/borrowAction";
 import DefaultLayout from "../../components/layout/DefaultLayout";
-// import { addNewBurrowAction } from "../../features/burrows/burrowAction";
 
 const BookLanding = () => {
   const location = useLocation();
@@ -25,6 +24,7 @@ const BookLanding = () => {
   }
 
   const {
+    _id,
     title,
     author,
     publishedYear,
@@ -36,18 +36,10 @@ const BookLanding = () => {
 
   const handleOnBookBurrow = () => {
     if (window.confirm("Are you sure, you want to burrow this book?")) {
-      // dispatch(
-      //   addNewBurrowAction({
-      //     bookId: _id,
-      //     bookTitle: title,
-      //     thumbnail: thumbnail,
-      //   })
-      // );
-      console.log("BURROWING");
       dispatch(
         borrowBookAction({
           bookId: _id,
-          bookTitle: title,
+          title: title,
           thumbnail,
         })
       );
@@ -75,7 +67,7 @@ const BookLanding = () => {
           <p>
             {author} - {publishedYear}
           </p>
-          {/* <Stars stars={avgRatings} totalReviews={bookReviews.length} /> */}
+          <Stars stars={avgRatings} totalReviews={bookReviews.length} />
           <p className="mt-5">{description.slice(0, 130)}...</p>
           <div className="">
             {user?._id ? (

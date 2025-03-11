@@ -26,7 +26,7 @@ const ProfileDetail = () => {
               src="https://png.pngtree.com/png-vector/20191121/ourmid/pngtree-blue-bird-vector-or-color-illustration-png-image_2013004.jpg"
               alt=""
             />{" "}
-            <h5>{user.fName + " " + user.lName}</h5>
+            <h5>{user?.fName + " " + user?.lName}</h5>
           </Col>
           <Col>
             {profileInput?.map((input, i) => {

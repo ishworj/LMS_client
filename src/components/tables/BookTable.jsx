@@ -50,7 +50,9 @@ setDisplayBooks(books)
         <div>{books.length} Books found!</div>
 
         <div>
+          <label htmlFor="">Search</label>
           <input
+          
             type="text"
             className="form-control"
             onChange={handleOnChange}

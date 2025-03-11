@@ -6,8 +6,6 @@ export const loginAction = (form, navigate) => async (dispatch) => {
   // call the login api
   const data = await loginApi({ ...form });
 
-  console.log(10000, data);
-
   if (data.status == "success") {
     // update user store
     dispatch(setUser(data.user));

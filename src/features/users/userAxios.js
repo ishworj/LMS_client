@@ -33,8 +33,6 @@ export const fetchUserDetailApi = () => {
     isRefreshToken: false,
   };
 
-  console.log("FETCH USER API");
-
   return apiProcessor(apiObj);
 }
 

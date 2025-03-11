@@ -1,4 +1,9 @@
-import { deleteBook, fetchAllBookApi, postNewBookApi, updateABook } from "./bookAxios";
+import {
+  deleteBook,
+  fetchAllBookApi,
+  postNewBookApi,
+  updateABook,
+} from "./bookAxios";
 import { setBooks } from "./bookSlice";
 import { toast } from "react-toastify";
 
@@ -12,30 +17,26 @@ export const getAllBooksActions =
     }
   };
 
+export const postNewBookAction = (obj) => async (disptch) => {
+  // call axios to send data
+  const pending = postNewBookApi(obj);
+  toast.promise(pending, {
+    pending: "Please wait ...",
+    success: pending.message,
+  });
 
-  export const postNewBookAction = (obj) => async (disptch) => {
+  const { status, message } = await pending;
+  toast[status](message);
 
-    console.log(obj)
-    // call axios to send data
-    const pending = postNewBookApi(obj);
-    toast.promise(pending, {
-      pending: "Please wait ...",
-      success: pending.message,
-    });
-
-    const { status, message } = await pending;
-    toast[status](message);
-    console.log(status, message);
-
-    if (status == "success") {
-      // then call function to fetch all the data
-      // update the store data with new book
-      disptch(getAllBooksActions(true));
-      return true;
-    } else {
-      return false;
-    }
-  };
+  if (status == "success") {
+    // then call function to fetch all the data
+    // update the store data with new book
+    disptch(getAllBooksActions(true));
+    return true;
+  } else {
+    return false;
+  }
+};
 
 export const updateSingleBookAction = (obj) => async (dispatch) => {
   const pending = updateABook(obj);
@@ -47,7 +48,6 @@ export const updateSingleBookAction = (obj) => async (dispatch) => {
   toast[status](message);
   return { status, message };
 };
-
 
 export const deleteSingleBookAction = (id) => async (dispatch) => {
   const pending = deleteBook(id);
