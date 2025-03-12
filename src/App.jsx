@@ -15,6 +15,7 @@ import AddNewBook from "./pages/book/AddNewBook";
 import EditBook from "./pages/book/EditBook";
 import ProfileDetail from "./pages/profile/ProfileDetail";
 import { ToastContainer } from "react-toastify";
+import StudentsList from "./pages/students/StudentsList";
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
         <Route path="admin/books" element={<BookList />} />
         <Route path="admin/books/new" element={<AddNewBook />} />
         <Route path="admin/book/edit/:_id" element={<EditBook />} />
+        <Route path="admin/students" element={<StudentsList />} />
 
         {/* profile page */}
         <Route path="/profile" element={<ProfileDetail />} />

@@ -46,3 +46,15 @@ export const createNewUserApi = (newUserObj) => {
 
   return apiProcessor(apiObj);
 };
+
+
+export const updateUserApi = (userObj)=>{
+  const apiObj = {
+    method: "put",
+    url: authEP,
+    isPrivate: true,
+    data: userObj,
+  };
+
+  return apiProcessor(apiObj);
+}

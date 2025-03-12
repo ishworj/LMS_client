@@ -15,7 +15,6 @@ const UserSigninForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(111,location)
 
   // to handle return location
   const { user } = useSelector((state) => state.userInfo);
