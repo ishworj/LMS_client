@@ -17,6 +17,7 @@ import ProfileDetail from "./pages/profile/ProfileDetail";
 import { ToastContainer } from "react-toastify";
 import StudentsList from "./pages/students/StudentsList";
 import EditStudent from "./pages/students/EditStudent";
+import AllBorrowsList from "./pages/allBurrows/AllBurrowsList";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
         <Route path="admin/book/edit/:_id" element={<EditBook />} />
         <Route path="admin/students" element={<StudentsList />} />
         <Route path="admin/students/profile" element={<EditStudent />} />
+        <Route path="admin/all-burrows" element={<AllBorrowsList />} />
 
         {/* profile page */}
         <Route path="/profile" element={<ProfileDetail />} />

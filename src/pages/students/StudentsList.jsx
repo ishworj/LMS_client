@@ -3,26 +3,31 @@ import UserLayout from "../../components/layout/UserLayout";
 import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedStudent, setStudents } from "../../features/students/studentSlice";
-import { deleteStudentAction, fetchAllStudentsAction } from "../../features/students/studentsActions";
+import {
+  setSelectedStudent,
+  setStudents,
+} from "../../features/students/studentSlice";
+import {
+  deleteStudentAction,
+  fetchAllStudentsAction,
+} from "../../features/students/studentsActions";
 import { setMenu } from "../../features/users/userSlice";
 
 const StudentsList = () => {
- const [displayStudents,setDisplayStudents]= useState([])
-   const [searchQuery, setSearchQuery] = useState("");
+  const [displayStudents, setDisplayStudents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const { students } = useSelector((state) => state.studentsInfo);
   const dispatch = useDispatch();
-  dispatch(setMenu("Students"))
+  dispatch(setMenu("Students"));
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(fetchAllStudentsAction())
+    dispatch(fetchAllStudentsAction());
   }, []);
 
-   useEffect(()=>{
-  setDisplayStudents(students)
-   },[students])
-
+  useEffect(() => {
+    setDisplayStudents(students);
+  }, [students]);
 
   // Handle search input change
   const handleOnChange = (e) => {
@@ -32,29 +37,26 @@ const StudentsList = () => {
   // Filter students based on search query
   const showStudents = displayStudents.filter(
     (student) =>
-      
       student.fName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.lName.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
       student.phone.toString().includes(searchQuery)
-      
   );
 
   // Handle delete student (just for simulation)
   const handleOnDelete = (id) => {
     console.log("Deleting student with ID:", id);
-    dispatch(deleteStudentAction(id))
+    dispatch(deleteStudentAction(id));
   };
 
-  // handle on edit 
-const handleOnEdit = (id) => {
-  const editUser= students.find((student)=>{
-    return student._id === id
-  })
-dispatch(setSelectedStudent(editUser))
-navigate("/admin/students/profile")
-
-};
+  // handle on edit
+  const handleOnEdit = (id) => {
+    const editUser = students.find((student) => {
+      return student._id === id;
+    });
+    dispatch(setSelectedStudent(editUser));
+    navigate("/admin/students/profile");
+  };
   return (
     <UserLayout pageTitle={"All students"}>
       <div>
@@ -105,12 +107,12 @@ navigate("/admin/students/profile")
                   <div>Role: {student.role}</div>
                 </td>
                 <td>
-                    <Button
-                      variant="warning"
-                      onClick={() => handleOnEdit(student._id)}
-                    >
-                      Edit
-                    </Button>
+                  <Button
+                    variant="warning"
+                    onClick={() => handleOnEdit(student._id)}
+                  >
+                    Edit
+                  </Button>
                   <Button
                     variant="danger"
                     onClick={() => handleOnDelete(student._id)}
