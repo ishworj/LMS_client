@@ -31,9 +31,9 @@ export const getMyBorrowListAction = () => async (dispatch) => {
 };
 
 // Action to return book
-export const returnBookAction = (id) => async (dispatch) => {
+export const returnBookAction = (id,bookID) => async (dispatch) => {
   //1. call returnBook Axios
-  const pending = returnBook(id);
+  const pending = returnBook(id, bookID);
 
   toast.promise(pending, {
     pending: "Please wait...",
@@ -44,6 +44,6 @@ export const returnBookAction = (id) => async (dispatch) => {
 
   if (status == "success") {
     dispatch(getMyBorrowListAction());
-    dispatch(getAllBooksAction());
+    dispatch(getAllBooksActions());
   }
 };

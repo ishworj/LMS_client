@@ -18,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import StudentsList from "./pages/students/StudentsList";
 import EditStudent from "./pages/students/EditStudent";
 import AllBorrowsList from "./pages/allBurrows/AllBurrowsList";
+import MyBorrow from "./pages/borrow/MyBorrow";
 
 function App() {
   const dispatch = useDispatch();
@@ -51,6 +52,7 @@ function App() {
         <Route path="/profile" element={<ProfileDetail />} />
         {/* private routes  */}
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="my-books" element={<MyBorrow/>} />
       </Routes>
     </>
   );
