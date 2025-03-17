@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { returnBookAction } from "../../features/borrows/borrowAction";
+import { CustomModal } from "../../modals/CustomModal";
+import { ReviewForm } from "../../components/forms/ReviewForm";
 
 const BorrowList = () => {
   const dispatch = useDispatch();
   const { borrows } = useSelector((store) => store.borrowInfo);
+    const { user } = useSelector((state) => state.userInfo);
+
+      const [borrow, setBorrow] = useState({});
 
   const handleOnReturn = (id,bookId) => {
     alert("Returning book with ID: " + id);
     dispatch(returnBookAction(id,bookId));
   };
 
-  const handleOnReview = (id) => {
-    alert("Leaving a review for book with ID: " + id);
-    // Implement review action here
-  };
+   const handleGiveReivew = (borrowObject) => {
+     setBorrow({ ...borrowObject, userName: user.fName });
+   };
+
 
   return (
     <div>
+      {borrow?._id ? (
+        <CustomModal title={"Leave review"} closeFunction={setBorrow}>
+          <ReviewForm borrow={borrow} setBurrow={setBorrow} />
+        </CustomModal>
+      ) : (
+        ""
+      )}
       <table className="border w-100">
         <thead>
           <tr>
@@ -45,15 +57,15 @@ const BorrowList = () => {
               <td className="border p-2">
                 {item.status !== "borrowed" ? (
                   <Button
-                    variant="info"
-                    onClick={() => handleOnReview(item._id)}
+                    variant="warning"
+                    onClick={() => handleGiveReivew(item)}
                   >
-                    Leave Review
+                    Give review
                   </Button>
                 ) : (
                   <Button
                     variant="danger"
-                    onClick={() => handleOnReturn(item._id,item.bookId)}
+                    onClick={() => handleOnReturn(item._id, item.bookId)}
                   >
                     Return Book
                   </Button>

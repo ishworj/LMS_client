@@ -19,12 +19,14 @@ import StudentsList from "./pages/students/StudentsList";
 import EditStudent from "./pages/students/EditStudent";
 import AllBorrowsList from "./pages/allBurrows/AllBurrowsList";
 import MyBorrow from "./pages/borrow/MyBorrow";
+import { getReviews } from "./features/reviews/reviewAction";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     // fetching all books
     dispatch(getAllBooksActions(false));
+     dispatch(getReviews(false));
     // auto login feature
     dispatch(autoLogin());
   }, []);
