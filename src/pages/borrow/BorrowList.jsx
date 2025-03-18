@@ -8,19 +8,18 @@ import { ReviewForm } from "../../components/forms/ReviewForm";
 const BorrowList = () => {
   const dispatch = useDispatch();
   const { borrows } = useSelector((store) => store.borrowInfo);
-    const { user } = useSelector((state) => state.userInfo);
+  const { user } = useSelector((state) => state.userInfo);
 
-      const [borrow, setBorrow] = useState({});
+  const [borrow, setBorrow] = useState({});
 
-  const handleOnReturn = (id,bookId) => {
+  const handleOnReturn = (id, bookId) => {
     alert("Returning book with ID: " + id);
-    dispatch(returnBookAction(id,bookId));
+    dispatch(returnBookAction(id, bookId));
   };
 
-   const handleGiveReivew = (borrowObject) => {
-     setBorrow({ ...borrowObject, userName: user.fName });
-   };
-
+  const handleGiveReivew = (borrowObject) => {
+    setBorrow({ ...borrowObject, userName: user.fName });
+  };
 
   return (
     <div>
@@ -55,7 +54,14 @@ const BorrowList = () => {
                   : "Not Returned"}
               </td>
               <td className="border p-2">
-                {item.status !== "borrowed" ? (
+                {item?.status === "borrowed" ? (
+                  <Button
+                    variant="danger"
+                    onClick={() => handleOnReturn(item._id, item.bookId)}
+                  >
+                    Return Book
+                  </Button>
+                ) : item?.status === "returned" ? (
                   <Button
                     variant="warning"
                     onClick={() => handleGiveReivew(item)}
@@ -63,12 +69,7 @@ const BorrowList = () => {
                     Give review
                   </Button>
                 ) : (
-                  <Button
-                    variant="danger"
-                    onClick={() => handleOnReturn(item._id, item.bookId)}
-                  >
-                    Return Book
-                  </Button>
+                  "Already reviewed"
                 )}
               </td>
             </tr>

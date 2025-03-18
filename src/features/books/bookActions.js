@@ -38,8 +38,8 @@ export const postNewBookAction = (obj) => async (disptch) => {
   }
 };
 
-export const updateSingleBookAction = (obj) => async (dispatch) => {
-  const pending = updateABook(obj);
+export const updateSingleBookAction = (obj,id) => async (dispatch) => {
+  const pending = updateABook(obj,id);
   toast.promise(pending, {
     pending: "Please wait....",
   });

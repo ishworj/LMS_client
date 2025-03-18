@@ -13,17 +13,22 @@ const initialState = {};
 
 const AddNewBook = () => {
   const dispatch = useDispatch();
-   const navigate = useNavigate();
-  
+  const navigate = useNavigate();
+
   const { form, handleOnChange } = useForm(initialState);
 
-  const handleOnSubmit = async(e) => {
+  const handleOnSubmit = async (e) => {
     e.preventDefault();
-    //1. call post new book api
-    //2. status check
 
-    // TODO: call create new book action
-    const success = await dispatch(postNewBookAction(form));
+    console.log(form);
+    const formData = new FormData();
+    Object.keys(form).forEach((key) => {
+      formData.append(key, form[key]);
+    });
+
+console.log(formData);
+
+    const success = await dispatch(postNewBookAction(formData));
     console.log(2000, success);
     if (success) {
       navigate("/admin/books");
@@ -44,9 +49,22 @@ const AddNewBook = () => {
         <h4 className="py-4">Fill up the form to add new book</h4>
 
         <Form onSubmit={handleOnSubmit}>
-          {inputFields.map((input, i) => (
-            <CustomInput key={i} {...input} onChange={handleOnChange} />
-          ))}
+          <Form.Group controlId="bookFile">
+            <Form.Label>Upload Book Cover Image</Form.Label>
+            <Form.Control
+              type="file"
+              name="bookFile"
+              accept="image/*" // Only accept image files
+              onChange={handleOnChange}
+            />
+          </Form.Group>
+          {inputFields.map((input, i) =>
+            input.name != "thumbnail" ? (
+              <CustomInput key={i} {...input} onChange={handleOnChange} />
+            ) : (
+              ""
+            )
+          )}
 
           <div className="d-grid">
             <Button type="submit">Submit New Book</Button>

@@ -14,6 +14,7 @@ export const apiProcessor = async ({
   data,
   isPrivate,
   isRefreshToken = false,
+  contentType = "application/json",
 }) => {
   const headers = {
     Authorization: isPrivate
@@ -21,6 +22,7 @@ export const apiProcessor = async ({
       : isRefreshToken
       ? getRefreshJWT()
       : null,
+    "Content-type": contentType,
   };
   try {
     const response = await axios({ method, url, data, headers });

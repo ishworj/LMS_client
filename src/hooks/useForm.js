@@ -1,15 +1,24 @@
 import { useState } from "react";
 const handleOnChange = (e, form, setForm) => {
-  let { name, value, checked, type } = e.target;
+  let { name, value, checked, type, files } = e.target;
 
   if (type === "checkbox") {
     value = checked ? "active" : "inactive";
   }
 
-  setForm({
-    ...form,
-    [name]: value,
-  });
+  console.log(name, value, files);
+  if (name == "bookFile" && files) {
+    console.log("HERE");
+    setForm({
+      ...form,
+      [name]: files[0],
+    });
+  } else {
+    setForm({
+      ...form,
+      [name]: value,
+    });
+  }
 };
 
 export const useForm = (initialState) => {

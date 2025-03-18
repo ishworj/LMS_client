@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Nav, Row, Spinner, Tab, Tabs } from "react-bootstrap";
 import { Stars } from "../../components/stars/Stars";
 import { borrowBookAction } from "../../features/borrows/borrowAction";
-import DefaultLayout from "../../components/layout/DefaultLayout";
 import { ReviewBlock } from "../../components/custom-card/ReviewBlock";
+const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 
 const BookLanding = () => {
   const location = useLocation();
@@ -15,7 +15,6 @@ const BookLanding = () => {
   const { books } = useSelector((state) => state.books);
   const { user } = useSelector((state) => state.userInfo);
   const { pubReviews } = useSelector((state) => state.reviewInfo);
-  console.log(pubReviews)
 
   const book = books.find((item) => item._id === bookid);
   if (!book?._id) {
@@ -58,7 +57,15 @@ const BookLanding = () => {
       <Row className="g-2">
         <Col md={6}>
           <div className="m-auto" style={{ maxWidth: "450px" }}>
-            <img src={thumbnail} alt="" width={"100%"} />
+            <img
+              src={
+                thumbnail.includes("http")
+                  ? thumbnail
+                  : `${imageUrl}/${thumbnail}`
+              }
+              alt=""
+              width={"100%"}
+            />
           </div>
         </Col>
         <Col md={6}>

@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
 import { addNewReviewAction } from "../../features/reviews/reviewAction.js";
+import { getAllBooksActions } from "../../features/books/bookActions.js";
 
 export const ReviewForm = ({ borrow, setBurrow }) => {
   const dispatch = useDispatch();
@@ -28,7 +29,9 @@ export const ReviewForm = ({ borrow, setBurrow }) => {
 
     if (window.confirm("Are you sure, you want to leave this review?")) {
       const action = await dispatch(addNewReviewAction(obj));
-      action && setBurrow({});
+      action && setBurrow({}) && dispatch(getMyBorrowListAction());
+      //TODO why not updating 
+      dispatch(getMyBorrowListAction());
     }
   };
   return (

@@ -8,6 +8,7 @@ import {
   getAllBooksActions,
 } from "../../features/books/bookActions";
 import { useState } from "react";
+const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 
 // const isPrivate = true;
 export const BookTable = () => {
@@ -52,7 +53,6 @@ setDisplayBooks(books)
         <div>
           <label htmlFor="">Search</label>
           <input
-          
             type="text"
             className="form-control"
             onChange={handleOnChange}
@@ -74,7 +74,15 @@ setDisplayBooks(books)
             <tr key={item._id}>
               <td>{i + 1}</td>
               <td>
-                <img src={item.thumbnail} alt="" width={"70px"} />
+                <img
+                  src={
+                    item.thumbnail.includes("http")
+                      ? item.thumbnail
+                      : `${imageUrl}/${item.thumbnail}`
+                  }
+                  alt=""
+                  width={"70px"}
+                />
               </td>
               <td>
                 <h2>{item.title.slice(0, 30)} ...</h2>

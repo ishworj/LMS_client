@@ -20,18 +20,20 @@ export const postNewBookApi = (newBookObj) => {
     isPrivate: true,
     isRefreshToken: false,
     data: newBookObj,
+    contentType:"multipart/form-data"
   };
 
   return apiProcessor(apiObj);
 };
 
-export const updateABook = async ({ _id, ...bookObject }) => {
+export const updateABook = async (bookObject,id) => {
   const apiObj = {
     method: "put",
-    url: bookEP + "/" + _id,
+    url: bookEP + "/" + id,
     isPrivate: true,
     isRefreshToken: false,
     data: bookObject,
+    contentType: "multipart/form-data",
   };
 
   return apiProcessor(apiObj);
