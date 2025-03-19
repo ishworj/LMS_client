@@ -20,6 +20,7 @@ import EditStudent from "./pages/students/EditStudent";
 import AllBorrowsList from "./pages/allBurrows/AllBurrowsList";
 import MyBorrow from "./pages/borrow/MyBorrow";
 import { getReviews } from "./features/reviews/reviewAction";
+import Reviews from "./pages/reviews/Reviews";
 
 function App() {
   const dispatch = useDispatch();
@@ -50,11 +51,14 @@ function App() {
         <Route path="admin/students/profile" element={<EditStudent />} />
         <Route path="admin/all-burrows" element={<AllBorrowsList />} />
 
+        {/* Reviews Crud Operation */}
+        <Route path="admin/reviews" element={<Reviews />} />
+
         {/* profile page */}
         <Route path="/profile" element={<ProfileDetail />} />
         {/* private routes  */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="my-books" element={<MyBorrow/>} />
+        <Route path="my-books" element={<MyBorrow />} />
       </Routes>
     </>
   );

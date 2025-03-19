@@ -5,6 +5,7 @@ import CustomInput from "../custom-input/CustomInput";
 import useForm from "../../hooks/useForm.js";
 import { apiProcessor } from "../../helper/axiosHelper.js";
 import { Link } from "react-router-dom";
+const authEp = import.meta.env.VITE_APP_ROOT_URL + "/auth";
 
 const UserSignupForm = () => {
   const { form, handleOnChange } = useForm({});
@@ -14,7 +15,7 @@ const UserSignupForm = () => {
 
     const data = await apiProcessor({
       method: "post",
-      url: "http://localhost:8080/api/v1/auth/register",
+      url: authEp +"/register",
       data: form,
       isPrivate: false,
     });

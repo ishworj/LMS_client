@@ -10,7 +10,6 @@ import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { TbStarsFilled } from "react-icons/tb";
 
-// TODO: apply admin only menu
 const sideLinks = [
   {
     icon: <FaBookBookmark />,
@@ -26,7 +25,7 @@ const sideLinks = [
   },
   {
     icon: <FaListUl />,
-    title: "All Burrows",
+    title: "All Borrows",
     to: "/admin/all-burrows",
     isAdminOnly: false,
   },

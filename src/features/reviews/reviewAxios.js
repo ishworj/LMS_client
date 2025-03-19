@@ -22,6 +22,17 @@ export const updateReview = async (obj) => {
   return apiProcessor(axiosObj);
 };
 
+
+export const deleteReview = async (id) => {
+  const axiosObj = {
+    method: "delete",
+    url: reviewEP+`/${id}`,
+    isPrivate: true,
+  };
+  return apiProcessor(axiosObj);
+};
+
+
 export const fetchReviews = async (isPrivate) => {
   const axiosObj = {
     method: "get",

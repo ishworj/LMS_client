@@ -2,7 +2,6 @@ import { apiProcessor } from "../../helper/axiosHelper";
 
 const borrowEP = import.meta.env.VITE_APP_ROOT_URL + "/borrows";
 
-// TODO: fetch borrow books api
 export const fetchBorrow = () => {
   return apiProcessor({
     method: "get",
@@ -12,7 +11,6 @@ export const fetchBorrow = () => {
   });
 };
 
-// TODO: call create borrow api
 export const borrowBook = (obj) => {
   return apiProcessor({
     method: "post",
@@ -23,7 +21,6 @@ export const borrowBook = (obj) => {
   });
 };
 
-// TODO: return book api
 export const returnBook = (id, bookId) => {
   return apiProcessor({
     method: "put",

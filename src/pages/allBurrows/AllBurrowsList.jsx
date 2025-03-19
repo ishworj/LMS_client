@@ -15,7 +15,7 @@ const AllBorrowsList = () => {
   const { books } = useSelector((state) => state.books);
 
   const dispatch = useDispatch();
-  dispatch(setMenu("Borrows"));
+  dispatch(setMenu("All Borrows"));
 
   useEffect(() => {
     dispatch(fetchAllStudentsAction());

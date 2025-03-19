@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Form } from "react-bootstrap";
@@ -8,14 +8,18 @@ import UserLayout from "../../components/layout/UserLayout";
 import CustomInput from "../../components/custom-input/CustomInput";
 import { setSelectedBook } from "../../features/books/bookSlice";
 import { updateSingleBookAction } from "../../features/books/bookActions";
+const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 
 const EditBook = () => {
   const { _id } = useParams();
   const dispatch = useDispatch();
   const { form, handleOnChange, setForm } = useForm({});
   const navigate = useNavigate();
-
   const { books, selectedBook } = useSelector((state) => state.books);
+
+  // State to store the image preview
+  const [imagePreview, setImagePreview] = useState("");
+  console.log(imagePreview);
 
   // update selectedBook
   useEffect(() => {
@@ -25,7 +29,11 @@ const EditBook = () => {
 
   useEffect(() => {
     setForm(selectedBook);
-    console.log("use effect called to setform for selected");
+    // Set the preview of the existing image if there's one
+    if (selectedBook?.thumbnail) {
+      setImagePreview(selectedBook.thumbnail);
+    }
+    console.log("use effect called to set form for selected");
   }, [selectedBook]);
 
   const handleOnSubmit = async (e) => {
@@ -37,23 +45,33 @@ const EditBook = () => {
       formData.append(key, rest[key]);
     });
 
-    //TODO   sow thumbnail of seperate update thumbnail
-
-    if (window.confirm("Are you sure you want to make this changes?")) {
+    if (window.confirm("Are you sure you want to make these changes?")) {
       const data = await dispatch(updateSingleBookAction(formData, _id));
       if (data.status == "success") {
         navigate("/admin/books");
       }
     }
   };
+  //TODO book not updating image
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result); // Set the image preview as data URL
+      };
+      reader.readAsDataURL(file); // Read the file as data URL
+    } else {
+      // If no file is selected, set the preview to an empty string (reset)
+      setImagePreview("");
+    }
+    handleOnChange(e); // Call your handleOnChange function to update form state
+  };
 
   return (
     <UserLayout pageTitle={"Update book"}>
       <div className="mt-5">
-        {/* form here  */}
-
         <h4 className="py-4">Update the new book</h4>
-
         <Form onSubmit={handleOnSubmit}>
           <Form.Check
             name="status"
@@ -69,14 +87,28 @@ const EditBook = () => {
             }
           />
           {inputFields?.map((input, i) =>
-            input.name == "thumbnail" ? (
-              <Form.Group controlId="bookFile">
+            input.name === "thumbnail" ? (
+              <Form.Group controlId="bookFile" key={i}>
                 <Form.Label>Update Book Cover Image</Form.Label>
+                {imagePreview && (
+                  <div className="mb-3">
+                    <img
+                      src={
+                        imagePreview.includes("http")
+                          ? imagePreview
+                          : `${imageUrl}/${imagePreview}`
+                      }
+                      alt="Book Cover Preview"
+                      className="img-fluid"
+                      style={{ maxWidth: "200px", maxHeight: "200px" }}
+                    />
+                  </div>
+                )}
                 <Form.Control
                   type="file"
                   name="bookFile"
-                  accept="image/*" // Only accept image files
-                  onChange={handleOnChange}
+                  accept="image/*"
+                  onChange={handleFileChange}
                 />
               </Form.Group>
             ) : (
@@ -89,7 +121,6 @@ const EditBook = () => {
               />
             )
           )}
-
           <div className="d-grid">
             <Button type="submit">Update Book</Button>
           </div>

@@ -16,7 +16,7 @@ const BookList = () => {
       {/* Button here  */}
       <div className=" text-end mb-5">
         <Link to="/admin/books/new">
-          <Button variant="primary" style={{display:"block"}}>
+          <Button variant="primary" style={{ display: "block" }}>
             <MdOutlineAddBox /> Add New Book
           </Button>
         </Link>
