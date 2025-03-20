@@ -120,7 +120,7 @@ const AllBorrowsList = () => {
                 <td
                   style={{
                     backgroundColor:
-                      borrow.status === "returned" ? "#d4edda" : "#f8d7da",
+                      borrow.status === "borrowed" ? "f8d7da" : "##d4edda",
                   }}
                 >
                   <strong>Student:</strong> {getUserName(borrow.userId)} <br />
@@ -128,14 +128,14 @@ const AllBorrowsList = () => {
                   <br />
                   <strong>Borrow Date:</strong>{" "}
                   {new Date(borrow.borrowDate).toLocaleDateString()} <br />
-                  <strong>Due Date:</strong>{" "}
+                  <strong >Due Date:</strong>{" "}
                   {new Date(borrow.dueDate).toLocaleDateString()}
                 </td>
                 {/* Second Column: Return Date & Status */}
                 <td
                   style={{
                     backgroundColor:
-                      borrow.status === "returned" ? "#d4edda" : "#f8d7da",
+                      borrow.status === "borrowed" ? "#f8d7da" : "#d4edda",
                   }}
                 >
                   <strong>Return Date:</strong>{" "}

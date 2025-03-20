@@ -19,14 +19,10 @@ const AddNewBook = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-
-    console.log(form);
     const formData = new FormData();
     Object.keys(form).forEach((key) => {
       formData.append(key, form[key]);
     });
-
-console.log(formData);
 
     const success = await dispatch(postNewBookAction(formData));
     console.log(2000, success);

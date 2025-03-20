@@ -54,6 +54,7 @@ export const updateUserApi = (userObj)=>{
     url: authEP,
     isPrivate: true,
     data: userObj,
+    contentType: "multipart/form-data",
   };
 
   return apiProcessor(apiObj);

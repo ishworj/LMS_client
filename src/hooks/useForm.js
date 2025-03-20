@@ -7,18 +7,18 @@ const handleOnChange = (e, form, setForm) => {
   }
 
   console.log(name, value, files);
-  if (name == "bookFile" && files) {
-    console.log("HERE");
-    setForm({
-      ...form,
-      [name]: files[0],
-    });
-  } else {
-    setForm({
-      ...form,
-      [name]: value,
-    });
-  }
+ if ((name === "bookFile" || name === "profileFile") && files) {
+   console.log("HERE");
+   setForm({
+     ...form,
+     [name]: files[0],
+   });
+ } else {
+   setForm({
+     ...form,
+     [name]: value,
+   });
+ }
 };
 
 export const useForm = (initialState) => {

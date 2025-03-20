@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UserLayout from "../../components/layout/UserLayout";
 import { useDispatch, useSelector } from "react-redux";
 import { setMenu } from "../../features/users/userSlice";
@@ -9,8 +9,11 @@ import useForm from "../../hooks/useForm";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { updateUserAciton } from "../../features/users/userActions";
+import { UpdateProfileModal } from "../../modals/updateProfileModal.jsx";
+const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 
 const ProfileDetail = () => {
+  const [modalShow, setModalShow] = useState(false);
   const { form, handleOnChange, setForm } = useForm({});
   const dispatch = useDispatch();
   dispatch(setMenu("Profile"));
@@ -33,16 +36,26 @@ const ProfileDetail = () => {
         <Row className="">
           <Col className="d-flex flex-column justify-content-center align-items-center">
             <div
-              className="border border-3 overflow-hidden rounded-circle d-flex justify-content-center"
+              className="border border-3 overflow-hidden rounded-circle d-flex justify-content-center mb-3 "
               style={{ height: "300px", width: "300px" }}
             >
               <img
-                src="https://png.pngtree.com/png-vector/20191121/ourmid/pngtree-blue-bird-vector-or-color-illustration-png-image_2013004.jpg"
+                src={
+                  user?.profileImage
+                    ? `${imageUrl}/${user.profileImage}`
+                    : "/defaultUser.png"
+                }
                 alt="Ishwor's image"
-                className="img-fluid p-3"
+                className="img-fluid"
               />
             </div>
-            <h2 className="text-center pt-3">
+
+            <Button onClick={() => setModalShow(true)}>Update Profile</Button>
+            <UpdateProfileModal
+              show={modalShow}
+              handleClose={() => setModalShow(false)}
+            />
+            <h2 className="text-center pt-3 ">
               {user?.fName + " " + user?.lName}
             </h2>
           </Col>

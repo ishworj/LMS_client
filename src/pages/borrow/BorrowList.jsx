@@ -42,7 +42,9 @@ const BorrowList = () => {
         </thead>
         <tbody>
           {borrows.map((item, index) => (
-            <tr key={item._id}>
+            <tr
+              key={item._id}
+            >
               <td className="border p-2">{index + 1}</td>
               <td className="border p-2">{item.title}</td>
               <td className="border p-2">
