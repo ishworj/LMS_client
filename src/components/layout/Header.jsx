@@ -1,13 +1,13 @@
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link , useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GiBookshelf } from "react-icons/gi";
 import SearchModal from "../../modals/SearchModal.jsx";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { resetUser } from "../../features/users/userSlice.js"
+import { resetUser } from "../../features/users/userSlice.js";
 
 const searchInputs = [
   {
@@ -18,13 +18,13 @@ const searchInputs = [
 
 export const Header = () => {
   const [modalShow, setModalShow] = React.useState(false);
-const { user } = useSelector((store) => store.userInfo);
-const dispatch = useDispatch();
-const navigate = useNavigate();
+  const { user } = useSelector((store) => store.userInfo);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Navbar expand="lg" className="bg-light">
       <Container>
-        <Navbar.Brand href="#home" className="">
+        <Navbar.Brand href="/" className="">
           <img src="/logo.png" alt="Logo" height={"50px"} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -44,7 +44,14 @@ const navigate = useNavigate();
               <GiBookshelf className="me-1" />
               Home
             </Link>
-            {user?._id?  (
+            <a
+              className="nav-link d-flex align-items-center"
+              href="#newArrivals"
+            >
+              <GiBookshelf className="me-1" />
+              New Arrivals
+            </a>
+            {user?._id ? (
               <>
                 <Link className="nav-link" to="/dashboard">
                   Dashboard
@@ -54,6 +61,9 @@ const navigate = useNavigate();
                   onClick={() => {
                     dispatch(resetUser());
                     navigate("/");
+                    localStorage.removeItem("refreshJWT");
+                    sessionStorage.removeItem("accessJWT")
+                    window.location.reload();
                   }}
                 >
                   Logout

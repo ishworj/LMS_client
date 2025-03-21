@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { CustomCard } from "../../components/custom-card/CustomCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import NewArrivals from "./NewArrivals";
 
 const HomePage = () => {
   const bookStore = useSelector((state) => state.books);
@@ -28,17 +29,32 @@ const HomePage = () => {
     <>
       <Container>
         <Row>
-          <Carousel className="mt-5">
-            <Carousel.Item interval={3000}>
+          <Carousel
+            className=" d-flex  align-items-center"
+            style={{ minHeight: "70vh" }}
+          >
+            <Carousel.Item interval={10000}>
               <div className="d-flex align-items-center">
-                <div className="d-flex flex-column p-5 w-25">
-                  <h3 className="text-primary">Make it simple</h3>
+                <div className="d-flex flex-column p-5 w-50">
+                  <h3 className="text-primary">
+                    Unleash the Power of Knowledge: <br /> Explore Our Extensive
+                    Digital <br />
+                    Library
+                  </h3>
+
                   <p>
-                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                    Unlock the doors to a world of endless possibilities. Browse
+                    our extensive collection of books, journals, and digital
+                    resources to satisfy your thirst for knowledge.
                   </p>
-                  <Button>Discover More</Button>
+                  <div>
+                    <Button className="bg-white text-primary fw-bold me-2 ">
+                      Start Browsing
+                    </Button>
+                    <Button>Join now</Button>
+                  </div>
                 </div>
-                <div className="w-75">
+                <div className="w-50">
                   <img
                     className="d-block w-100"
                     style={{ objectFit: "cover", maxHeight: "400px" }}
@@ -60,15 +76,24 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="d-flex flex-column p-5 w-25">
-                  <h3 className="text-primary">Make it simple</h3>
+                  <h3 className="text-primary">Empowering Knowledge</h3>
                   <p>
-                    Nulla vitae elit libero, a pharetra augue mollis interdum.
+                    "Expand your knowledge with our diverse collection of books,
+                    journals, and digital resources. Start your journey today!"
                   </p>
                   <Button>Discover More</Button>
                 </div>
               </div>
             </Carousel.Item>
           </Carousel>
+        </Row>
+
+        <Row className="mb-4">
+          <h3 className="text-center text-glow">New arrivals</h3>
+        </Row>
+
+        <Row className="mb-4 " id="newArrivals">
+          <NewArrivals />
         </Row>
 
         <Row>

@@ -10,13 +10,20 @@ export const CustomCard = ({
   publishedYear,
 }) => {
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img
-        variant="top"
-        src={
-          thumbnail.includes("http") ? thumbnail : `${imageUrl}/${thumbnail}`
-        }
-      />
+    <Card style={{ maxWidth: "18rem" }}>
+      <div style={{ width: "100%", height: "250px", overflow: "hidden" }}>
+        <Card.Img
+          variant="top"
+          src={
+            thumbnail.includes("http") ? thumbnail : `${imageUrl}/${thumbnail}`
+          }
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        />
+      </div>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <hr />
