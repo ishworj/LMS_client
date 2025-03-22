@@ -21,13 +21,14 @@ import AllBorrowsList from "./pages/allBurrows/AllBurrowsList";
 import MyBorrow from "./pages/borrow/MyBorrow";
 import { getReviews } from "./features/reviews/reviewAction";
 import Reviews from "./pages/reviews/Reviews";
+import ForgetPasswordPage from "./pages/auth/ForgetPasswordPage";
 
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     // fetching all books
     dispatch(getAllBooksActions(false));
-     dispatch(getReviews(false));
+    dispatch(getReviews(false));
     // auto login feature
     dispatch(autoLogin());
   }, []);
@@ -41,6 +42,7 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="book/:bookid" element={<BookLanding />} />
+          <Route path="forget-password" element={<ForgetPasswordPage/>} />
         </Route>
 
         {/* Display Book List */}

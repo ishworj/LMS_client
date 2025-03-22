@@ -46,6 +46,10 @@ const UserSigninForm = () => {
         <p className="mt-3 text-center ">
           <Link to="/signup">Unlock account ?</Link>
         </p>
+
+        <p className="mt-3 text-center ">
+          Forget password? <Link to="/forget-password">Reset NOW</Link>
+        </p>
       </Form>
     </>
   );
