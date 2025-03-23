@@ -13,6 +13,17 @@ export const loginApi = (loginObj) => {
   });
 };
 
+export const requestOTP = (obj) => {
+  return apiProcessor({
+    method: "post",
+    url: authEP + "/otp",
+    data: obj,
+    isPrivate: false,
+    isRefreshToken: false,
+  });
+};
+
+
 // export const fetchAllUserDetailApi = () => {
 //   const apiObj = {
 //     method: "get",
