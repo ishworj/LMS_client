@@ -1,34 +1,58 @@
-import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { Alert, Button, Form, Spinner } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Alert, Button, Form, Spinner, Toast } from "react-bootstrap";
 import CustomInput from "../../components/custom-input/CustomInput";
 import useForm from "../../hooks/useForm";
-import { requestOTP } from "../../features/users/userAxios";
+import { requestOTP, resetPassword } from "../../features/users/userAxios";
+import { toast } from "react-toastify";
+
+const timeToRequestOtpAgain = 60; //s
 
 const ForgetPasswordPage = () => {
+  const navigate = useNavigate();
   const emailRef = useRef("");
   const { form, handleOnChange } = useForm();
   const [showPassResetForm, setShowPassResetForm] = useState(false);
 
-  const [isOtpPending , setIsOtpPending] = useState(false)
+  const [isOtpPending, setIsOtpPending] = useState(false);
   const [isOptBtnDisabled, setIsOptBtnDisabled] = useState(false);
+  const [counter, setCounter] = useState(0);
+
+  useEffect(() => {
+    if (counter > 0) {
+     const timer = setInterval(() => {
+        setCounter(counter - 1);
+      }, 1000);
+      return () => clearInterval(timer);
+    }else(setIsOptBtnDisabled(false))
+
+    
+  }, [counter]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     const email = emailRef.current.value; // Access the actual input value
-    setIsOptBtnDisabled(true)
-    setIsOtpPending(true)
+    setIsOptBtnDisabled(true);
+    setIsOtpPending(true);
     const response = await requestOTP({ email });
-    if (response.status==='success') {
-      setShowPassResetForm(true)
+    if (response.status === "success") {
+      setShowPassResetForm(true);
     }
-    setIsOptBtnDisabled(false);
-    setIsOtpPending(false);
+     setIsOtpPending(false);
+    // setIsOptBtnDisabled(false);
+    setCounter(timeToRequestOtpAgain)
+   
   };
 
-  const handleOnSubmitPassword = (e) => {
+  const handleOnSubmitPassword = async(e) => {
     e.preventDefault();
-    console.log(form);
+    form.otp = Number(form.otp)
+    //axios call 
+    const {status,message} = await resetPassword({otp:form.otp,email:emailRef.current.value,password:form.password});
+    if (status === "success") {
+      toast[status](message)
+      navigate("/signin")
+    }
   };
 
   return (
@@ -49,11 +73,14 @@ const ForgetPasswordPage = () => {
               type="email"
               ref={emailRef}
             />
-            <Button type="submit" className="w-100">
-              Request OTP
-              {
-                isOtpPending ? <Spinner variant="border"/>:"Request OTP"
-              }
+            <Button type="submit" className="w-100" disabled={isOptBtnDisabled}>
+              {isOtpPending ? (
+                <Spinner variant="border" />
+              ) : counter > 0? (
+                `Request OTP in ${counter}`
+              ) : (
+                "Request OTP"
+              )}
             </Button>
           </Form>
         </div>

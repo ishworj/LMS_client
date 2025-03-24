@@ -23,6 +23,17 @@ export const requestOTP = (obj) => {
   });
 };
 
+export const resetPassword = (obj) => {
+  return apiProcessor({
+    method: "post",
+    url: authEP + "/reset-password",
+    data: obj,
+    isPrivate: false,
+    isRefreshToken: false,
+  });
+};
+
+
 
 // export const fetchAllUserDetailApi = () => {
 //   const apiObj = {
