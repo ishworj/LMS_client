@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import Button from "react-bootstrap/Button";
 import { Form, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+const imageURL = import.meta.env.VITE_APP_IMAGE_URL;
 
 const SearchModal = (props) => {
   const bookStore = useSelector((state) => state.books);
@@ -39,31 +40,33 @@ const SearchModal = (props) => {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Book Search
-        </Modal.Title>
+        <div className="d-flex w-100 justify-content-between">
+          <div>
+            <h3>Book Search</h3>
+          </div>
+          <div>
+            <Form.Control
+              onChange={handleOnSearch}
+              placeholder="Search by book name..."
+              style={{
+                width: "100%",
+                padding: "8px",
+                borderRadius: "5px",
+                borderColor: "#ccc",
+              }}
+            />
+          </div>
+        </div>
       </Modal.Header>
       <Modal.Body>
-        <h4 style={{ textAlign: "center", marginBottom: "20px" }}>
-          Search for Books
-        </h4>
-
         {/* Search Input */}
         <Row>
           <Col className="d-flex justify-content-between mt-3">
-            <label htmlFor="">Books found: {searchedBooks.length}</label>
-            <div>
-              <Form.Control
-                onChange={handleOnSearch}
-                placeholder="Search by book name..."
-                style={{
-                  width: "100%",
-                  padding: "8px",
-                  borderRadius: "5px",
-                  borderColor: "#ccc",
-                }}
-              />
-            </div>
+            {searchedBooks?.length ? (
+              <label htmlFor="">Books found: {searchedBooks.length}</label>
+            ) : (
+              ""
+            )}
           </Col>
         </Row>
 
@@ -71,7 +74,7 @@ const SearchModal = (props) => {
         {searchTerm && (
           <Row className="mb-4" style={{ marginTop: "20px" }}>
             <Col>
-              <div className="d-flex flex-column gap-3">
+              <div className="d-flex flex-column gap-3 cursor-pointer">
                 {searchedBooks.length > 0 ? (
                   searchedBooks.map(
                     (book) =>
@@ -87,12 +90,6 @@ const SearchModal = (props) => {
                             transition: "transform 0.3s ease",
                             padding: "10px",
                           }}
-                          onMouseEnter={(e) =>
-                            (e.currentTarget.style.transform = "scale(1.05)")
-                          }
-                          onMouseLeave={(e) =>
-                            (e.currentTarget.style.transform = "scale(1)")
-                          }
                         >
                           {/* Book Image */}
                           <div
@@ -103,7 +100,7 @@ const SearchModal = (props) => {
                             }}
                           >
                             <img
-                              src={book.image || "default-image.jpg"}
+                              src={`${imageURL}/${book.thumbnail}`}
                               alt={book.title}
                               style={{
                                 width: "100%",
@@ -144,9 +141,9 @@ const SearchModal = (props) => {
         )}
       </Modal.Body>
 
-      <Modal.Footer>
+      {/* <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer>
+      </Modal.Footer> */}
     </Modal>
   );
 };

@@ -36,7 +36,7 @@ const HomePage = () => {
             <Carousel.Item interval={10000}>
               <div className="d-flex align-items-center">
                 <div className="d-flex flex-column p-5 w-50">
-                  <h3 className="text-primary">
+                  <h3>
                     Unleash the Power of Knowledge: <br /> Explore Our Extensive
                     Digital <br />
                     Library
@@ -76,7 +76,7 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="d-flex flex-column p-5 w-25">
-                  <h3 className="text-primary">Empowering Knowledge</h3>
+                  <h3>Empowering Knowledge</h3>
                   <p>
                     "Expand your knowledge with our diverse collection of books,
                     journals, and digital resources. Start your journey today!"
@@ -89,11 +89,19 @@ const HomePage = () => {
         </Row>
 
         <Row className="mb-4">
-          <h3 className="text-center text-glow">New arrivals</h3>
+          <h3 className="text-center ">
+            "Fresh Off the Shelves: Explore Our New Book Arrivals!"
+          </h3>
         </Row>
 
-        <Row className="mb-4 " id="newArrivals">
+        <Row className="mb-4 bg-light p-sm-2 " id="newArrivals">
           <NewArrivals />
+        </Row>
+
+        <Row >
+          <h3 className="text-center m-4">
+            "Dive Into Excellence: Discover Our Major Collections!"
+          </h3>
         </Row>
 
         <Row>
@@ -109,7 +117,7 @@ const HomePage = () => {
         </Row>
         <hr />
         <Row className="mb-4">
-          <Col className="d-flex gap-4 flex-wrap">
+          <Col className="d-flex justify-content-between flex-wrap">
             {searchedBooks.map(
               (book) =>
                 book.status === "active" && (

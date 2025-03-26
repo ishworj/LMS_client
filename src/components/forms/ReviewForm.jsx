@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import  CustomInput  from "../custom-input/CustomInput";
+import CustomInput from "../custom-input/CustomInput";
 import { FaStar } from "react-icons/fa";
 import useForm from "../../hooks/useForm";
 import { useDispatch } from "react-redux";
-import { addNewReviewAction } from "../../features/reviews/reviewAction.js";
+import {
+  addNewReviewAction,
+  getReviews,
+} from "../../features/reviews/reviewAction.js";
 import { getAllBooksActions } from "../../features/books/bookActions.js";
+import { getMyBorrowListAction } from "../../features/borrows/borrowAction.js";
 
 export const ReviewForm = ({ borrow, setBurrow }) => {
   const dispatch = useDispatch();
@@ -29,9 +33,8 @@ export const ReviewForm = ({ borrow, setBurrow }) => {
 
     if (window.confirm("Are you sure, you want to leave this review?")) {
       const action = await dispatch(addNewReviewAction(obj));
-      action && setBurrow({}) && dispatch(getMyBorrowListAction());
-      //TODO why not updating 
-      dispatch(getMyBorrowListAction());
+      action && setBurrow({});
+      //TODO why not updating
     }
   };
   return (

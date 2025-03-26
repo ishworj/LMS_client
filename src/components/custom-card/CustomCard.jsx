@@ -10,8 +10,8 @@ export const CustomCard = ({
   publishedYear,
 }) => {
   return (
-    <Card style={{ maxWidth: "18rem" }}>
-      <div style={{ width: "100%", height: "250px", overflow: "hidden" }}>
+    <Card style={{ width: "12rem", marginTop: "20px", height: "25rem" }}>
+      <div style={{ width: "100%", height: "75%", overflow: "hidden" }}>
         <Card.Img
           variant="top"
           src={
@@ -19,12 +19,12 @@ export const CustomCard = ({
           }
           style={{
             width: "100%",
-            height: "100%",
-            objectFit: "cover",
+            height: "100%", 
+            objectFit: "cover", 
           }}
         />
       </div>
-      <Card.Body>
+      <Card.Body style={{ height: "25%", padding: "0.75rem" }}>
         <Card.Title>{title}</Card.Title>
         <hr />
         <Card.Text>

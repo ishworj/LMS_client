@@ -3,7 +3,6 @@ import { borrowBook, fetchBorrow, returnBook } from "./borrowAxios";
 import { setBorrows } from "./borrowSlice";
 import { getAllBooksActions } from "../books/bookActions";
 
-
 //auto login user
 export const borrowBookAction = (obj) => async (dispatch) => {
   // 1. burrowAxios
@@ -22,6 +21,7 @@ export const borrowBookAction = (obj) => async (dispatch) => {
 };
 
 export const getMyBorrowListAction = () => async (dispatch) => {
+  // console.log("called burriow")
   // fetch borrow list
   const pending = fetchBorrow();
 
@@ -31,7 +31,7 @@ export const getMyBorrowListAction = () => async (dispatch) => {
 };
 
 // Action to return book
-export const returnBookAction = (id,bookID) => async (dispatch) => {
+export const returnBookAction = (id, bookID) => async (dispatch) => {
   //1. call returnBook Axios
   const pending = returnBook(id, bookID);
 

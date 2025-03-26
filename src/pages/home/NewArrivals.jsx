@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Col } from "react-bootstrap";
-import { Link  } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { CustomCard } from "../../components/custom-card/CustomCard";
 
 const NewArrivals = () => {
@@ -15,15 +15,19 @@ const NewArrivals = () => {
     return createdAtDate >= thirtyDaysAgo && book.status === "active";
   });
 
-  return recentBooks.length > 0
-    ? recentBooks.map((book) => (
-        <Col key={book._id} md={3}>
-          <Link to={"/book/" + book._id} style={{ textDecoration: "none" }}>
-            <CustomCard {...book} />
-          </Link>
-        </Col>
-      ))
-    : null;
+  return (
+    <Col className="d-flex justify-content-between flex-wrap">
+      {recentBooks.length > 0
+        ? recentBooks.map((book) =>
+            book.status === "active" ? (
+              <Link key={book._id} to={"/book/" + book._id}>
+                <CustomCard {...book} />
+              </Link>
+            ) : null
+          )
+        : "No new arrivals"}
+    </Col>
+  );
 };
 
 export default NewArrivals;

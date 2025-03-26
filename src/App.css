@@ -12,3 +12,17 @@
 .text-glow {
   text-shadow: 0 0 5px rgba(35, 28, 28, 0.7), 0 0 10px rgba(220, 209, 209, 0.6), 0 0 15px rgba(104, 96, 96, 0.5);
 }
+
+
+.bg-black{
+    background-color: black;
+}
+
+.bg-white{
+    background-color: white;
+}
+
+.nav-second{
+    position: sticky;
+    top: 0px;
+}

@@ -9,7 +9,7 @@ export const UserLayout = ({ children, pageTitle }) => {
   const { user } = useSelector((state) => state.userInfo);
   return (
     <AuthRoute>
-      <div>
+      <div className="">
         {/* header  */}
         <Header />
         <Container fluid>

@@ -1,6 +1,7 @@
 import { deleteReview, fetchReviews, postNewReview, updateReview } from "./reviewAxios";
 import { toast } from "react-toastify";
 import { setAllReview, setPubReviews, updateReveiwStatus } from "./reviewSlice.js";
+import { getMyBorrowListAction } from "../borrows/borrowAction.js";
 
 export const addNewReviewAction = (obj) => async (dispatch) => {
   const pending = postNewReview(obj);
@@ -14,8 +15,8 @@ export const addNewReviewAction = (obj) => async (dispatch) => {
   toast[status](message);
 
   if (status === "success") {
-    return true;
-    //fetch the seleted book
+    dispatch(getMyBorrowListAction());
+    return true
   }
 };
 

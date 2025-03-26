@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { returnBookAction } from "../../features/borrows/borrowAction";
+import {
+  getMyBorrowListAction,
+  returnBookAction,
+} from "../../features/borrows/borrowAction";
 import { CustomModal } from "../../modals/CustomModal";
 import { ReviewForm } from "../../components/forms/ReviewForm";
 
@@ -41,7 +44,7 @@ const BorrowList = () => {
           </tr>
         </thead>
         <tbody>
-          {borrows.map((item, index) => (
+          {borrows.slice().reverse().map((item, index) => (
             <tr key={item._id}>
               <td className="border p-2">{index + 1}</td>
               <td className="border p-2">{item.title}</td>
