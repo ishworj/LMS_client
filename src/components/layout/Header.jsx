@@ -21,6 +21,18 @@ const searchInputs = [
   },
 ];
 
+window.addEventListener("scroll", function () {
+  var stickyDiv = document.querySelector(".makeSticky");
+
+  if (window.scrollY > 70) {
+    stickyDiv.style.position = "fixed";
+    stickyDiv.style.top = "0";
+    stickyDiv.style.width = "100%";
+  } else {
+    stickyDiv.style.position = "static";
+  }
+});
+
 export const Header = () => {
   const [modalShow, setModalShow] = React.useState(false);
   const { user } = useSelector((store) => store.userInfo);
@@ -88,7 +100,7 @@ export const Header = () => {
         </Container>
       </Navbar>
 
-      <div className="bg-black text-white nav-second ">
+      <div className="bg-black text-white makeSticky">
         <div className="container p-3 d-flex flex-wrap justify-content-center gap-3">
           <Link
             className="nav-link d-none d-sm-flex align-items-center "

@@ -5,8 +5,8 @@ import Row from "react-bootstrap/esm/Row";
 
 const Footer = () => {
   return (
-    <div className="bg-dark">
-      <Container className="bg-dark text-light text-center py-3">
+    <div className="bg-black">
+      <Container className="bg-black text-light text-center py-3">
         <Row>
           <Col>
             <h5>Links</h5>

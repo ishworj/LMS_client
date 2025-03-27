@@ -5,7 +5,7 @@ import Footer from './Footer'
 
 const DefaultLayout = () => {
   return (
-    <div className='position-relative' >
+    <div  >
         {/* header */}
         <Header />
 

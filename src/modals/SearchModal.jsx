@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
-import { Form, Row, Col } from "react-bootstrap";
+import { Form, Row, Col, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -30,6 +30,7 @@ const SearchModal = (props) => {
 
   const handleBookClick = () => {
     props.onHide(); // Close the modal when a book is clicked
+    setSearchTerm("")
   };
 
   return (
@@ -39,7 +40,7 @@ const SearchModal = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
+      <Modal.Header >
         <div className="d-flex w-100 justify-content-between">
           <div>
             <h3>Book Search</h3>
@@ -48,6 +49,7 @@ const SearchModal = (props) => {
             <Form.Control
               onChange={handleOnSearch}
               placeholder="Search by book name..."
+              value={searchTerm}
               style={{
                 width: "100%",
                 padding: "8px",
@@ -125,6 +127,7 @@ const SearchModal = (props) => {
                               <p style={{ fontSize: "14px", color: "#555" }}>
                                 {book.author}
                               </p>
+                              <p>{book.description}</p>
                             </Link>
                           </div>
                         </div>
@@ -141,9 +144,9 @@ const SearchModal = (props) => {
         )}
       </Modal.Body>
 
-      {/* <Modal.Footer>
+      <Modal.Footer>
         <Button onClick={props.onHide}>Close</Button>
-      </Modal.Footer> */}
+      </Modal.Footer>
     </Modal>
   );
 };
