@@ -22,6 +22,9 @@ import MyBorrow from "./pages/borrow/MyBorrow";
 import { getReviews } from "./features/reviews/reviewAction";
 import Reviews from "./pages/reviews/Reviews";
 import ForgetPasswordPage from "./pages/auth/ForgetPasswordPage";
+import OpeningHours from "./pages/OpeningHours";
+import Booking from "./pages/Booking";
+import Contact from "./pages/Contact";
 
 function App() {
   const dispatch = useDispatch();
@@ -42,7 +45,9 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="book/:bookid" element={<BookLanding />} />
-          <Route path="forget-password" element={<ForgetPasswordPage/>} />
+          <Route path="time" element={<OpeningHours/>} />
+          <Route path="booking" element={<Booking />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
 
         {/* Display Book List */}

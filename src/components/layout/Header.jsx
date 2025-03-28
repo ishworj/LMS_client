@@ -2,7 +2,6 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import { Link, useNavigate } from "react-router-dom";
-import { GiBookshelf } from "react-icons/gi";
 import SearchModal from "../../modals/SearchModal.jsx";
 import React from "react";
 import { Button } from "react-bootstrap";
@@ -48,37 +47,34 @@ export const Header = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="ms-auto fw-bold">
-              <Nav.Link
-                href="#home"
-                className="d-flex align-items-center gap-2"
+            <nav className="ms-auto d-flex  text-dark gap-1 gap-sm-3 text-center">
+              <Link
+                to="/time"
+                className="nav-link d-flex flex-column flex-sm-row align-items-center gap-sm-2 text-center"
               >
-                <BsClockHistory /> Opening Hours
-              </Nav.Link>
-              <Nav.Link
-                href="#features"
-                className="d-flex align-items-center gap-2"
+                <BsClockHistory  /> Opening Hours
+              </Link>
+              <Link
+                to="/booking"
+                className="nav-link d-flex flex-column flex-sm-row align-items-center gap-2"
               >
                 <IoIosDesktop /> Book a Study Space
-              </Nav.Link>
-              <Nav.Link
-                href="#contact"
-                className="d-flex align-items-center gap-2"
+              </Link>
+              <Link
+                to="/contact"
+                className="nav-link d-flex flex-column flex-sm-row align-items-center gap-2"
               >
                 <FaRegMessage /> Contact Us
-              </Nav.Link>
-              <Nav.Link
-                href="#library"
-                className="d-flex align-items-center gap-2"
-              >
+              </Link>
+              <div className="d-flex flex-column flex-sm-row align-items-center gap-2">
                 <FaRegUserCircle />
                 {user?._id ? (
                   <>
-                    <Link className="nav-link p-0" to="/dashboard">
+                    <Link to="/dashboard" className=" nav-link p-0">
                       My Library
                     </Link>
                     <Link
-                      className="nav-link text-danger"
+                      className=" nav-link text-danger"
                       onClick={() => {
                         dispatch(resetUser());
                         navigate("/");
@@ -90,12 +86,12 @@ export const Header = () => {
                     </Link>
                   </>
                 ) : (
-                  <Link className="nav-link p-0" to="/signin">
+                  <Link to="/signin" className="nav nav-link p-0">
                     My Library
                   </Link>
                 )}
-              </Nav.Link>
-            </Nav>
+              </div>
+            </nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>

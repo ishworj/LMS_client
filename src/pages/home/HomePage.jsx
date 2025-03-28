@@ -28,14 +28,27 @@ const HomePage = () => {
   return (
     <>
       <Container>
-        <Row>
+        <Row
+          style={{
+            marginTop: "4px",
+            backgroundImage: `url("/library.jpg")`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+          }}
+        >
           <Carousel
-            className=" d-flex  align-items-center"
-            style={{ minHeight: "70vh" }}
+            className=" d-flex  align-items-center text-white"
+            style={{ minHeight: "70vh", backdropFilter: "blur(2px)" }}
           >
             <Carousel.Item interval={10000}>
               <div className="d-flex align-items-center">
-                <div className="d-flex flex-column p-5 w-50">
+                <div
+                  className="d-flex flex-column p-5 w-50"
+                  style={{
+                    backgroundColor: "rgba(0, 0, 0, 0.35)"
+                  }}
+                >
                   <h3>
                     Unleash the Power of Knowledge: <br /> Explore Our Extensive
                     Digital <br />
@@ -98,7 +111,7 @@ const HomePage = () => {
           <NewArrivals />
         </Row>
 
-        <Row >
+        <Row>
           <h3 className="text-center m-4">
             "Dive Into Excellence: Discover Our Major Collections!"
           </h3>
