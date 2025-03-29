@@ -63,7 +63,7 @@ const SearchModal = (props) => {
       <Modal.Body>
         {/* Search Input */}
         <Row>
-          <Col className="d-flex justify-content-between mt-3">
+          <Col className="d-flex justify-content-between mt-3 ">
             {searchedBooks?.length ? (
               <label htmlFor="">Books found: {searchedBooks.length}</label>
             ) : (
@@ -74,7 +74,7 @@ const SearchModal = (props) => {
 
         {/* Only display books if search term is not empty */}
         {searchTerm && (
-          <Row className="mb-4" style={{ marginTop: "20px" }}>
+          <Row className="mb-4" style={{ marginTop: "20px", maxHeight:"70vh", overflow:"scroll" }}>
             <Col>
               <div className="d-flex flex-column gap-3 cursor-pointer">
                 {searchedBooks.length > 0 ? (

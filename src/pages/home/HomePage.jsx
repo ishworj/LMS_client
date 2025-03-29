@@ -29,25 +29,22 @@ const HomePage = () => {
     <>
       <Container>
         <Row
-          style={{
-            marginTop: "4px",
-            backgroundImage: `url("/library.jpg")`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundAttachment: "fixed",
-          }}
+          // style={{
+          //   marginTop: "4px",
+          //   backgroundImage: `url("/library.jpg")`,
+          //   backgroundSize: "cover",
+          //   backgroundPosition: "center",
+          //   backgroundAttachment: "fixed",
+          // }}
         >
           <Carousel
-            className=" d-flex  align-items-center text-white"
-            style={{ minHeight: "70vh", backdropFilter: "blur(2px)" }}
+            className=" d-flex  align-items-center text-dark"
+            style={{ minHeight: "70vh" }}
           >
             <Carousel.Item interval={10000}>
               <div className="d-flex align-items-center">
                 <div
                   className="d-flex flex-column p-5 w-50"
-                  style={{
-                    backgroundColor: "rgba(0, 0, 0, 0.35)"
-                  }}
                 >
                   <h3>
                     Unleash the Power of Knowledge: <br /> Explore Our Extensive

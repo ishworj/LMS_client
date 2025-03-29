@@ -47,12 +47,12 @@ export const Header = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <nav className="ms-auto d-flex  text-dark gap-1 gap-sm-3 text-center">
+            <nav className="ms-auto d-flex  text-dark gap-1 gap-sm-3  fs-6 fs-sm-1 text-center">
               <Link
                 to="/time"
-                className="nav-link d-flex flex-column flex-sm-row align-items-center gap-sm-2 text-center"
+                className="nav-link d-flex flex-column flex-sm-row align-items-center gap-sm-2 "
               >
-                <BsClockHistory  /> Opening Hours
+                <BsClockHistory /> Opening Hours
               </Link>
               <Link
                 to="/booking"
@@ -61,18 +61,21 @@ export const Header = () => {
                 <IoIosDesktop /> Book a Study Space
               </Link>
               <Link
-                to="/contact"
+                to="/contact"s
                 className="nav-link d-flex flex-column flex-sm-row align-items-center gap-2"
               >
                 <FaRegMessage /> Contact Us
               </Link>
-              <div className="d-flex flex-column flex-sm-row align-items-center gap-2">
-                <FaRegUserCircle />
+              <div className="d-flex flex-row  align-items-center gap-2">
                 {user?._id ? (
                   <>
-                    <Link to="/dashboard" className=" nav-link p-0">
-                      My Library
+                    <Link
+                      to="/dashboard"
+                      className=" d-flex flex-column flex-sm-row nav-link p-0 align-items-center gap-2"
+                    >
+                      <FaRegUserCircle /> My Library
                     </Link>
+
                     <Link
                       className=" nav-link text-danger"
                       onClick={() => {

@@ -58,7 +58,7 @@ export const UserSidebar = () => {
       : sideLinks.filter((item) => !item.isAdminOnly);
 
   return (
-    <Stack gap={1}>
+    <Stack gap={1} className="position-sticky top-0">
       {list.map(({ title, to, icon }) => (
         <Link
           key={title}
