@@ -9,8 +9,15 @@ import { IoLibrary } from "react-icons/io5";
 import { CgProfile } from "react-icons/cg";
 import { useSelector } from "react-redux";
 import { TbStarsFilled } from "react-icons/tb";
+import { MdDashboard } from "react-icons/md";
 
 const sideLinks = [
+  {
+    icon: <MdDashboard />,
+    title: "Dashboard",
+    to: "/admin/dashboard",
+    isAdminOnly: true,
+  },
   {
     icon: <FaBookBookmark />,
     title: "Books",

@@ -8,17 +8,25 @@ import { useDispatch } from "react-redux";
 import UserLayout from "../../components/layout/UserLayout";
 import CustomInput from "../../components/custom-input/CustomInput";
 import { postNewBookAction } from "../../features/books/bookActions";
+import ConfirmModal from "../../modals/ConfirmModal";
 
 const initialState = {};
 
 const AddNewBook = () => {
+  const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { form, handleOnChange } = useForm(initialState);
 
-  const handleOnSubmit = async (e) => {
-    e.preventDefault();
+ const handleOnFormSubmit = (e) => {
+   e.preventDefault();
+   setShowModal(true);
+ };
+
+
+
+  const handleOnSubmit = async () => {
     const formData = new FormData();
     Object.keys(form).forEach((key) => {
       formData.append(key, form[key]);
@@ -44,7 +52,7 @@ const AddNewBook = () => {
 
         <h4 className="py-4">Fill up the form to add new book</h4>
 
-        <Form onSubmit={handleOnSubmit}>
+        <Form onSubmit={handleOnFormSubmit}>
           <Form.Group controlId="bookFile">
             <Form.Label>Upload Book Cover Image</Form.Label>
             <Form.Control
@@ -67,6 +75,13 @@ const AddNewBook = () => {
           </div>
         </Form>
       </div>
+      <ConfirmModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={handleOnSubmit}
+        title="Adding book"
+        message="Are you sure you want to add this book ?"
+      />
     </UserLayout>
   );
 };

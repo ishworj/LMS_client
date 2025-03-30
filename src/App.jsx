@@ -64,7 +64,7 @@ function App() {
         {/* profile page */}
         <Route path="/profile" element={<ProfileDetail />} />
         {/* private routes  */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="admin/dashboard" element={<Dashboard />} />
         <Route path="my-books" element={<MyBorrow />} />
       </Routes>
     </>

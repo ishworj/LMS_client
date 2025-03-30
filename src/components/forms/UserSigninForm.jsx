@@ -19,7 +19,10 @@ const UserSigninForm = () => {
   // to handle return location
   const { user } = useSelector((state) => state.userInfo);
   // set sendTo location depending upon user url interaction
-  const sendTo = location?.state?.from?.location?.pathname || "/dashboard";
+
+  const defaultURL = user?.role==="admin" ?  "/admin/dashboard" : "/my-books";
+
+  const sendTo = location?.state?.from?.location?.pathname || defaultURL;
 
   useEffect(() => {
     user?._id && navigate(sendTo);

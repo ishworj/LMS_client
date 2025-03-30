@@ -1,25 +1,32 @@
-
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Accordion from "react-bootstrap/Accordion";
 import useForm from "../hooks/useForm";
+import { sendMessage } from "../features/contact/contactAxios.js";
+import ConfirmModal from "../modals/ConfirmModal.jsx";
+import { useState } from "react";
 
 const Contact = () => {
+  const [showModal, setShowModal] = useState(false);
   const { form, setForm, handleOnChange } = useForm({
     email: "",
     subject: "",
     message: "",
   });
 
-  const handleOnSubmit = (e) => {
+  const handleOnFormSubmit = (e) => {
     e.preventDefault();
-    alert(`Message sent!\nEmail: ${form.email}\nSubject: ${form.subject}`);
-    setForm({ email: "", subject: "", message: "" }); // Reset form
+    setShowModal(true);
+  };
+
+  const handleOnSubmit = async () => {
+    const isSent = await sendMessage(form);
+    isSent && setForm({ email: "", subject: "", message: "" }); // Reset form
   };
 
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Contact Me</h2>
+      <h2 className="text-center mb-4">Contact US</h2>
       <div className="row">
         {/* FAQ Section (Left on Desktop, Above Form on Mobile) */}
         <div className="col-md-5 order-md-1 order-2 mt-4 mt-md-0">
@@ -61,10 +68,18 @@ const Contact = () => {
           </Accordion>
         </div>
 
+        <ConfirmModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          onConfirm={handleOnSubmit}
+          title="Contact"
+          message="Are you sure you want to send this messsage ?"
+        />
+
         {/* Contact Form (Right on Desktop, Below FAQ on Mobile) */}
         <div className="col-md-7 order-md-2 order-1 d-flex justify-content-center">
           <div className="col-md-10 p-4 border rounded shadow">
-            <Form onSubmit={handleOnSubmit}>
+            <Form onSubmit={handleOnFormSubmit}>
               <Form.Group className="mb-3">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control

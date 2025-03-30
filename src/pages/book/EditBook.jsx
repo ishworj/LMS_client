@@ -8,9 +8,11 @@ import UserLayout from "../../components/layout/UserLayout";
 import CustomInput from "../../components/custom-input/CustomInput";
 import { setSelectedBook } from "../../features/books/bookSlice";
 import { updateSingleBookAction } from "../../features/books/bookActions";
+import ConfirmModal from "../../modals/ConfirmModal";
 const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 
 const EditBook = () => {
+  const [showModal, setShowModal] = useState(false);
   const { _id } = useParams();
   const dispatch = useDispatch();
   const { form, handleOnChange, setForm } = useForm({});
@@ -36,20 +38,21 @@ const EditBook = () => {
     console.log("use effect called to set form for selected");
   }, [selectedBook]);
 
-  const handleOnSubmit = async (e) => {
+  const handleOnFormSubmit = (e) => {
     e.preventDefault();
+    setShowModal(true);
+  };
+
+  const handleOnSubmit = async () => {
     const { __v, createdAt, isbn, updatedAt, thumbnail, _id, ...rest } = form;
 
     const formData = new FormData();
     Object.keys(rest).forEach((key) => {
       formData.append(key, rest[key]);
     });
-
-    if (window.confirm("Are you sure you want to make these changes?")) {
-      const data = await dispatch(updateSingleBookAction(formData, _id));
-      if (data.status == "success") {
-        navigate("/admin/books");
-      }
+    const data = await dispatch(updateSingleBookAction(formData, _id));
+    if (data.status == "success") {
+      navigate("/admin/books");
     }
   };
   //TODO book not updating image
@@ -72,7 +75,7 @@ const EditBook = () => {
     <UserLayout pageTitle={"Update book"}>
       <div className="mt-5">
         <h4 className="py-4">Update the new book</h4>
-        <Form onSubmit={handleOnSubmit}>
+        <Form onSubmit={handleOnFormSubmit}>
           <Form.Check
             name="status"
             onChange={handleOnChange}
@@ -126,6 +129,13 @@ const EditBook = () => {
           </div>
         </Form>
       </div>
+      <ConfirmModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        onConfirm={handleOnSubmit}
+        title="Editing book"
+        message="Are you sure you want to  make changes ?"
+      />
     </UserLayout>
   );
 };

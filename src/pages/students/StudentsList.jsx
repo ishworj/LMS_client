@@ -3,17 +3,17 @@ import UserLayout from "../../components/layout/UserLayout";
 import { Button, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setSelectedStudent,
-  setStudents,
-} from "../../features/students/studentSlice";
+import { setSelectedStudent } from "../../features/students/studentSlice";
 import {
   deleteStudentAction,
   fetchAllStudentsAction,
 } from "../../features/students/studentsActions";
 import { setMenu } from "../../features/users/userSlice";
+import ConfirmModal from "../../modals/ConfirmModal";
 
 const StudentsList = () => {
+  const [showModal, setShowModal] = useState(false);
+  const [studentToDeleteId, setStudentToDeleteId] = useState(null); // Store student ID for deletion
   const [displayStudents, setDisplayStudents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const { students } = useSelector((state) => state.studentsInfo);
@@ -23,7 +23,7 @@ const StudentsList = () => {
 
   useEffect(() => {
     dispatch(fetchAllStudentsAction());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setDisplayStudents(students);
@@ -43,13 +43,14 @@ const StudentsList = () => {
       student.phone.toString().includes(searchQuery)
   );
 
-  // Handle delete student (just for simulation)
+  // Handle delete student (simulation)
   const handleOnDelete = (id) => {
     console.log("Deleting student with ID:", id);
     dispatch(deleteStudentAction(id));
+    setShowModal(false); // Close the modal after deletion
   };
 
-  // handle on edit
+  // Handle edit student
   const handleOnEdit = (id) => {
     const editUser = students.find((student) => {
       return student._id === id;
@@ -57,6 +58,7 @@ const StudentsList = () => {
     dispatch(setSelectedStudent(editUser));
     navigate("/admin/students/profile");
   };
+
   return (
     <UserLayout pageTitle={"All students"}>
       <div>
@@ -86,7 +88,7 @@ const StudentsList = () => {
           </thead>
           <tbody>
             {showStudents.map((student, i) => (
-              <tr key={student.id}>
+              <tr key={student._id}>
                 <td>{i + 1}</td>
                 <td>
                   <div className="d-flex justify-content-center">
@@ -115,7 +117,10 @@ const StudentsList = () => {
                   </Button>
                   <Button
                     variant="danger"
-                    onClick={() => handleOnDelete(student._id)}
+                    onClick={() => {
+                      setStudentToDeleteId(student._id); // Set student ID for deletion
+                      setShowModal(true); // Show the confirmation modal
+                    }}
                   >
                     Delete
                   </Button>
@@ -124,6 +129,15 @@ const StudentsList = () => {
             ))}
           </tbody>
         </Table>
+
+        {/* Confirm modal for deletion */}
+        <ConfirmModal
+          show={showModal}
+          onHide={() => setShowModal(false)} // Close modal
+          onConfirm={() => handleOnDelete(studentToDeleteId)} // Pass the ID to the delete handler
+          title="Deleting Student"
+          message="Are you sure you want to delete this student?"
+        />
       </div>
     </UserLayout>
   );

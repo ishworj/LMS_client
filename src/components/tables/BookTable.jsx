@@ -1,30 +1,25 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import {
   deleteSingleBookAction,
   getAllBooksActions,
 } from "../../features/books/bookActions";
-import { useState } from "react";
+import ConfirmModal from "../../modals/ConfirmModal";
+
 const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 
-// const isPrivate = true;
 export const BookTable = () => {
-
-  let [displayBooks,setDisplayBooks]=useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [bookToDeleteId, setBookToDeleteId] = useState(null); // Track book ID to delete
+  let [displayBooks, setDisplayBooks] = useState([]);
   const dispatch = useDispatch();
   const { books } = useSelector((state) => state.books);
 
- useEffect(()=>{
-setDisplayBooks(books)
- },[books])
-
-  const handleOnDelete = async (id) => {
-    // 1. delete axios call
-    dispatch(deleteSingleBookAction(id));
-  };
+  useEffect(() => {
+    setDisplayBooks(books);
+  }, [books]);
 
   useEffect(() => {
     dispatch(getAllBooksActions(true));
@@ -41,8 +36,11 @@ setDisplayBooks(books)
           book.author.toLowerCase().includes(filter)
       )
     );
+  };
 
-
+  const handleOnDelete = (id) => {
+    dispatch(deleteSingleBookAction(id));
+    setShowModal(false); // Close modal after deletion
   };
 
   return (
@@ -101,7 +99,10 @@ setDisplayBooks(books)
                 </Link>
                 <Button
                   variant="danger"
-                  onClick={() => handleOnDelete(item._id)}
+                  onClick={() => {
+                    setBookToDeleteId(item._id); // Set the book ID to delete
+                    setShowModal(true); // Show the modal
+                  }}
                 >
                   Delete
                 </Button>
@@ -110,6 +111,15 @@ setDisplayBooks(books)
           ))}
         </tbody>
       </Table>
+
+      {/* The modal now handles the deletion directly */}
+      <ConfirmModal
+        show={showModal}
+        onHide={() => setShowModal(false)} // Close modal when canceled
+        onConfirm={() => handleOnDelete(bookToDeleteId)} // Call delete function directly with the book ID
+        title="Deleting book"
+        message="Are you sure you want to delete this book?"
+      />
     </div>
   );
 };

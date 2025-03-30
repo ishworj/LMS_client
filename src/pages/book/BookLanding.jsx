@@ -1,17 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Col, Nav, Row, Spinner, Tab, Tabs } from "react-bootstrap";
 import { Stars } from "../../components/stars/Stars";
 import { borrowBookAction } from "../../features/borrows/borrowAction";
 import { ReviewBlock } from "../../components/custom-card/ReviewBlock";
+import ConfirmModal from "../../modals/ConfirmModal";
 const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 
 const BookLanding = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const { bookid } = useParams();
-
+  const [showModal, setShowModal] = useState(false);
   const { books } = useSelector((state) => state.books);
   const { user } = useSelector((state) => state.userInfo);
   const { pubReviews } = useSelector((state) => state.reviewInfo);
@@ -33,7 +34,6 @@ const BookLanding = () => {
   } = book;
 
   const handleOnBookBurrow = () => {
-    if (window.confirm("Are you sure, you want to burrow this book?")) {
       dispatch(
         borrowBookAction({
           bookId: _id,
@@ -41,7 +41,6 @@ const BookLanding = () => {
           thumbnail,
         })
       );
-    }
   };
 
   // reviews only for this book
@@ -77,7 +76,12 @@ const BookLanding = () => {
           <p className="mt-5">{description.slice(0, 130)}...</p>
           <div className="">
             {user?._id ? (
-              <Button disabled={!isAvailable} onClick={handleOnBookBurrow}>
+              <Button
+                disabled={!isAvailable}
+                onClick={() => {
+                  setShowModal(true);
+                }}
+              >
                 {isAvailable
                   ? "Burrow This Book"
                   : "Expected available date: " +
@@ -94,6 +98,14 @@ const BookLanding = () => {
                 <Button>Login to burrow</Button>
               </Link>
             )}
+
+            <ConfirmModal
+              show={showModal}
+              onHide={() => setShowModal(false)}
+              onConfirm={handleOnBookBurrow}
+              title="Borrowing book"
+              message="Are you sure you want to borrow this book ?"
+            />
           </div>
         </Col>
       </Row>

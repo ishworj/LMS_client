@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const OpeningHours = () => {
   return (
-    <Container className="py-5">
+    <Container className="py-3 py-md-5 ">
       <Row className="mb-4">
         <Col>
           <h2 className="text-center text-success">Our Opening Hours</h2>
@@ -63,7 +63,8 @@ const OpeningHours = () => {
                   <strong>Phone:</strong> +1 (234) 567-890
                 </li>
                 <li>
-                  <strong>Email:</strong> info@example.com
+                  <strong>Email:</strong>{" "}
+                  <a href="mailto:info@example.com">info@example.com</a>
                 </li>
                 <li>
                   <strong>Address:</strong> 123 Main Street, City, Country
@@ -74,7 +75,7 @@ const OpeningHours = () => {
         </Col>
 
         <Col md={6}>
-          <h3>Location</h3>
+          <h3 className="mt-3 mt-md-0">Location</h3>
           <Card className="shadow-sm">
             <Card.Body>
               <div style={{ height: "250px", backgroundColor: "#e1e1e1" }}>

@@ -7,6 +7,7 @@ import {
 } from "../../features/borrows/borrowAction";
 import { CustomModal } from "../../modals/CustomModal";
 import { ReviewForm } from "../../components/forms/ReviewForm";
+import ConfirmModal from "../../modals/ConfirmModal";
 
 const BorrowList = () => {
   const dispatch = useDispatch();
@@ -14,16 +15,22 @@ const BorrowList = () => {
   const { user } = useSelector((state) => state.userInfo);
 
   const [borrow, setBorrow] = useState({});
-
-  const handleOnReturn = (id, bookId) => {
-    alert("Returning book with ID: " + id);
-    dispatch(returnBookAction(id, bookId));
+  const [showReturnModal, setShowReturnModal] = useState(false); 
+  const [bookToReturn, setBookToReturn] = useState(null); 
+  const handleOnReturn = () => {
+    if (bookToReturn) {
+      dispatch(returnBookAction(bookToReturn._id, bookToReturn.bookId));
+      setShowReturnModal(false);
+    }
   };
-
   const handleGiveReivew = (borrowObject) => {
     setBorrow({ ...borrowObject, userName: user.fName });
   };
 
+    const handleReturnButtonClick = (item) => {
+      setBookToReturn(item); 
+      setShowReturnModal(true); 
+    };
   return (
     <div>
       {borrow?._id ? (
@@ -44,41 +51,51 @@ const BorrowList = () => {
           </tr>
         </thead>
         <tbody>
-          {borrows.slice().reverse().map((item, index) => (
-            <tr key={item._id}>
-              <td className="border p-2">{index + 1}</td>
-              <td className="border p-2">{item.title}</td>
-              <td className="border p-2">
-                {new Date(item.dueDate).toLocaleDateString()}
-              </td>
-              <td className="border p-2">
-                {item.returnDate
-                  ? new Date(item.returnDate).toLocaleDateString()
-                  : "Not Returned"}
-              </td>
-              <td className="border p-2">
-                {item?.status === "borrowed" ? (
-                  <Button
-                    variant="danger"
-                    onClick={() => handleOnReturn(item._id, item.bookId)}
-                  >
-                    Return Book
-                  </Button>
-                ) : item?.status === "returned" ? (
-                  <Button
-                    variant="warning"
-                    onClick={() => handleGiveReivew(item)}
-                  >
-                    Give review
-                  </Button>
-                ) : (
-                  "Already reviewed"
-                )}
-              </td>
-            </tr>
-          ))}
+          {borrows
+            .slice()
+            .reverse()
+            .map((item, index) => (
+              <tr key={item._id}>
+                <td className="border p-2">{index + 1}</td>
+                <td className="border p-2">{item.title}</td>
+                <td className="border p-2">
+                  {new Date(item.dueDate).toLocaleDateString()}
+                </td>
+                <td className="border p-2">
+                  {item.returnDate
+                    ? new Date(item.returnDate).toLocaleDateString()
+                    : "Not Returned"}
+                </td>
+                <td className="border p-2">
+                  {item?.status === "borrowed" ? (
+                    <Button
+                      variant="danger"
+                      onClick={() => handleReturnButtonClick(item)}
+                    >
+                      Return Book
+                    </Button>
+                  ) : item?.status === "returned" ? (
+                    <Button
+                      variant="warning"
+                      onClick={() => handleGiveReivew(item)}
+                    >
+                      Give review
+                    </Button>
+                  ) : (
+                    "Already reviewed"
+                  )}
+                </td>
+              </tr>
+            ))}
         </tbody>
       </table>
+      <ConfirmModal
+        show={showReturnModal}
+        onHide={() => setShowReturnModal(false)} // Close modal
+        onConfirm={handleOnReturn}
+        title="Returning Book"
+        message="Are you sure you want to return this book?"
+      />
     </div>
   );
 };

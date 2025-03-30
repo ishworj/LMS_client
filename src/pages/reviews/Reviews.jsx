@@ -10,7 +10,7 @@ import { Stars } from "../../components/stars/Stars";
 import { Link } from "react-router-dom";
 import { setMenu } from "../../features/users/userSlice";
 import UserLayout from "../../components/layout/UserLayout";
-
+const imageUrl = import.meta.env.VITE_APP_IMAGE_URL;
 const isPrivate = true;
 const Reviews = () => {
   const { allReviews } = useSelector((state) => state.reviewInfo);
@@ -70,10 +70,15 @@ const Reviews = () => {
               placeholder="End Date"
             />
 
-            <Button variant="danger" onClick={()=>{
-              setEndDate("") 
-              setStartDate("")
-            }}>Reset filter</Button>
+            <Button
+              variant="danger"
+              onClick={() => {
+                setEndDate("");
+                setStartDate("");
+              }}
+            >
+              Reset filter
+            </Button>
           </div>
         </div>
         <hr />
@@ -82,7 +87,7 @@ const Reviews = () => {
             <tr>
               <th>#</th>
               <th>Status</th>
-              <th>Thumbnail</th>
+              <th>Book image</th>
               <th>Student Name</th>
               <th>Review</th>
               <th>Delete</th>
@@ -103,7 +108,15 @@ const Reviews = () => {
                 </td>
                 <td>
                   <Link to={`/book/${item.bookId}`} target="_blank">
-                    <img src={item.thumbnail} alt="" width={"60px"} />
+                    <img
+                      src={
+                        item.thumbnail.includes("http")
+                          ? item.thumbnail
+                          : `${imageUrl}/${item.thumbnail}`
+                      }
+                      alt=""
+                      width={"70px"}
+                    />
                   </Link>
                 </td>
                 <td>{item.userName}</td>

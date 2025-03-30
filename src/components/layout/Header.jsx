@@ -20,12 +20,18 @@ const searchInputs = [
   },
 ];
 
+  
 window.addEventListener("scroll", function () {
   var stickyDiv = document.querySelector(".makeSticky");
 
   if (window.scrollY > 70) {
     stickyDiv.style.position = "fixed";
     stickyDiv.style.top = "0";
+    stickyDiv.style.width = "100%";
+  }
+  else if (window.scrollY > -70) {
+    stickyDiv.style.position = "fixed";
+    stickyDiv.style.top = "100px";
     stickyDiv.style.width = "100%";
   } else {
     stickyDiv.style.position = "static";
@@ -70,7 +76,7 @@ export const Header = () => {
                 {user?._id ? (
                   <>
                     <Link
-                      to="/dashboard"
+                      to={user.role==="admin"? "/admin/dashboard":"/my-books"}
                       className=" d-flex flex-column flex-sm-row nav-link p-0 align-items-center gap-2"
                     >
                       <FaRegUserCircle /> My Library
@@ -114,9 +120,6 @@ export const Header = () => {
           <a className="nav-link d-flex align-items-center" href="#newArrivals">
             New Arrivals
           </a>
-          <Link className="nav-link d-flex align-items-center" to="/">
-            About Us
-          </Link>
           <Link className="nav-link d-flex align-items-center" to="/">
             Visit Us
           </Link>
