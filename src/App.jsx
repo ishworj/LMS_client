@@ -45,9 +45,10 @@ function App() {
           <Route path="signup" element={<Signup />} />
           <Route path="signin" element={<Signin />} />
           <Route path="book/:bookid" element={<BookLanding />} />
-          <Route path="time" element={<OpeningHours/>} />
+          <Route path="time" element={<OpeningHours />} />
           <Route path="booking" element={<Booking />} />
           <Route path="contact" element={<Contact />} />
+          <Route path="forget-password" element={<ForgetPasswordPage />} />
         </Route>
 
         {/* Display Book List */}

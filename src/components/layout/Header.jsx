@@ -1,7 +1,7 @@
 import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { HashLink as Link } from "react-router-hash-link";
 import SearchModal from "../../modals/SearchModal.jsx";
 import React from "react";
 import { Button } from "react-bootstrap";
@@ -20,18 +20,12 @@ const searchInputs = [
   },
 ];
 
-  
 window.addEventListener("scroll", function () {
   var stickyDiv = document.querySelector(".makeSticky");
 
   if (window.scrollY > 70) {
     stickyDiv.style.position = "fixed";
     stickyDiv.style.top = "0";
-    stickyDiv.style.width = "100%";
-  }
-  else if (window.scrollY > -70) {
-    stickyDiv.style.position = "fixed";
-    stickyDiv.style.top = "100px";
     stickyDiv.style.width = "100%";
   } else {
     stickyDiv.style.position = "static";
@@ -67,7 +61,8 @@ export const Header = () => {
                 <IoIosDesktop /> Book a Study Space
               </Link>
               <Link
-                to="/contact"s
+                to="/contact"
+                s
                 className="nav-link d-flex flex-column flex-sm-row align-items-center gap-2"
               >
                 <FaRegMessage /> Contact Us
@@ -76,7 +71,9 @@ export const Header = () => {
                 {user?._id ? (
                   <>
                     <Link
-                      to={user.role==="admin"? "/admin/dashboard":"/my-books"}
+                      to={
+                        user.role === "admin" ? "/admin/dashboard" : "/my-books"
+                      }
                       className=" d-flex flex-column flex-sm-row nav-link p-0 align-items-center gap-2"
                     >
                       <FaRegUserCircle /> My Library
@@ -113,13 +110,14 @@ export const Header = () => {
           >
             Home
           </Link>
+          <Link className="nav-link d-flex align-items-center" to="/#newArrivals">
+            New Arrivals
+          </Link>
 
           <Link className="nav-link d-flex align-items-center" to="/">
-            Resources
+            Aboutus
           </Link>
-          <a className="nav-link d-flex align-items-center" href="#newArrivals">
-            New Arrivals
-          </a>
+
           <Link className="nav-link d-flex align-items-center" to="/">
             Visit Us
           </Link>
