@@ -55,7 +55,7 @@ const OpeningHours = () => {
 
       <Row className="mb-4">
         <Col md={6}>
-          <h3>Contact Us</h3>
+          <h3 id="contact">Contact Us</h3>
           <Card className="shadow-sm">
             <Card.Body>
               <ul className="list-unstyled">

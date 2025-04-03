@@ -25,6 +25,7 @@ import ForgetPasswordPage from "./pages/auth/ForgetPasswordPage";
 import OpeningHours from "./pages/OpeningHours";
 import Booking from "./pages/Booking";
 import Contact from "./pages/Contact";
+import AboutUs from "./pages/AboutUs";
 
 function App() {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ function App() {
           <Route path="booking" element={<Booking />} />
           <Route path="contact" element={<Contact />} />
           <Route path="forget-password" element={<ForgetPasswordPage />} />
+          <Route path="about-us" element={<AboutUs />} />
         </Route>
 
         {/* Display Book List */}

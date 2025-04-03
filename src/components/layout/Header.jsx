@@ -114,12 +114,8 @@ export const Header = () => {
             New Arrivals
           </Link>
 
-          <Link className="nav-link d-flex align-items-center" to="/">
+          <Link className="nav-link d-flex align-items-center" to="/about-us">
             Aboutus
-          </Link>
-
-          <Link className="nav-link d-flex align-items-center" to="/">
-            Visit Us
           </Link>
 
           <Button
