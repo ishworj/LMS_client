@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UserLayout } from "../../components/layout/UserLayout";
 import { setMenu } from "../../features/users/userSlice";
 import { Col, Container, Row } from "react-bootstrap";
@@ -18,6 +18,18 @@ import GenrePieChart from "../../components/charts/GenrePieChart.jsx";
 const Dashboard = () => {
   const dispatch = useDispatch();
   dispatch(setMenu("Dashboard"));
+  const { students } = useSelector((state) => state.studentsInfo);
+  const { borrows } = useSelector((state) => state.borrowsInfo);
+
+  console.log(borrows)
+
+  const totalactivestudents = students.reduce((active, student) => {
+    const id = student._id;
+    return borrows.find((borrow) => borrow.userId === id) ? active + 1 : active;
+  }, 0);
+
+  console.log(totalactivestudents)
+
   return (
     <UserLayout pageTitle="Analytics Dashboard">
       <Container>
@@ -32,7 +44,7 @@ const Dashboard = () => {
               </h4>
 
               <div className=" text-center">
-                Total registered: <b>400</b>
+                Total registered: <b>{students.length}</b>
               </div>
               <div className="d-flex justify-content-around pt-3">
                 <div className="bg-success p-2">
@@ -137,7 +149,7 @@ const Dashboard = () => {
 
         <Row>
           <Col>
-           <GenrePieChart/>
+            <GenrePieChart />
           </Col>
         </Row>
       </Container>

@@ -26,6 +26,8 @@ import OpeningHours from "./pages/OpeningHours";
 import Booking from "./pages/Booking";
 import Contact from "./pages/Contact";
 import AboutUs from "./pages/AboutUs";
+import { fetchAllStudentsAction } from "./features/students/studentsActions";
+import { fetchAllBorrowsAction } from "./features/allBorrows/allBorrowActions";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +35,9 @@ function App() {
     // fetching all books
     dispatch(getAllBooksActions(false));
     dispatch(getReviews(false));
+    dispatch(fetchAllStudentsAction())
+    dispatch(fetchAllBorrowsAction())
+
     // auto login feature
     dispatch(autoLogin());
   }, []);

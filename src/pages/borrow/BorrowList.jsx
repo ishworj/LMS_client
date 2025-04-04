@@ -12,6 +12,7 @@ import ConfirmModal from "../../modals/ConfirmModal";
 const BorrowList = () => {
   const dispatch = useDispatch();
   const { borrows } = useSelector((store) => store.borrowInfo);
+  console.log(borrows)
   const { user } = useSelector((state) => state.userInfo);
 
   const [borrow, setBorrow] = useState({});
