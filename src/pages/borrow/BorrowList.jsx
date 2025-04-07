@@ -12,12 +12,12 @@ import ConfirmModal from "../../modals/ConfirmModal";
 const BorrowList = () => {
   const dispatch = useDispatch();
   const { borrows } = useSelector((store) => store.borrowInfo);
-  console.log(borrows)
+  console.log(borrows);
   const { user } = useSelector((state) => state.userInfo);
 
   const [borrow, setBorrow] = useState({});
-  const [showReturnModal, setShowReturnModal] = useState(false); 
-  const [bookToReturn, setBookToReturn] = useState(null); 
+  const [showReturnModal, setShowReturnModal] = useState(false);
+  const [bookToReturn, setBookToReturn] = useState(null);
   const handleOnReturn = () => {
     if (bookToReturn) {
       dispatch(returnBookAction(bookToReturn._id, bookToReturn.bookId));
@@ -28,10 +28,10 @@ const BorrowList = () => {
     setBorrow({ ...borrowObject, userName: user.fName });
   };
 
-    const handleReturnButtonClick = (item) => {
-      setBookToReturn(item); 
-      setShowReturnModal(true); 
-    };
+  const handleReturnButtonClick = (item) => {
+    setBookToReturn(item);
+    setShowReturnModal(true);
+  };
   return (
     <div>
       {borrow?._id ? (
