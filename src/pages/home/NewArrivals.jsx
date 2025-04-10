@@ -16,11 +16,11 @@ const NewArrivals = () => {
   });
 
   return (
-    <Col className="d-flex justify-content-between flex-wrap">
+    <Col className="d-flex justify-content-around flex-wrap ">
       {recentBooks.length > 0
         ? recentBooks.map((book) =>
             book.status === "active" ? (
-              <Link key={book._id} to={"/book/" + book._id}>
+              <Link key={book._id} to={"/book/" + book._id} className="text-decoration-none">
                 <CustomCard {...book} />
               </Link>
             ) : null

@@ -28,74 +28,48 @@ const HomePage = () => {
   return (
     <>
       <Container>
-        <Row
-          // style={{
-          //   marginTop: "4px",
-          //   backgroundImage: `url("/library.jpg")`,
-          //   backgroundSize: "cover",
-          //   backgroundPosition: "center",
-          //   backgroundAttachment: "fixed",
-          // }}
-        >
-          <Carousel
-            className=" d-flex  align-items-center text-dark"
-            style={{ minHeight: "70vh" }}
-          >
-            <Carousel.Item interval={10000}>
-              <div className="d-flex align-items-center">
-                <div
-                  className="d-flex flex-column p-5 w-50"
-                >
-                  <h3>
-                    Unleash the Power of Knowledge: <br /> Explore Our Extensive
-                    Digital <br />
-                    Library
-                  </h3>
+        <Row className="m-5">
+          <Col md={6} className="mb-2 mb-sm-0">
+            <h3 className="fs-1 fs-sm-2 fs-md-3 fs-lg-4">
+              Unleash the Power of Knowledge: <br /> Explore Our Extensive
+              Digital <br />
+              Library
+            </h3>
 
-                  <p>
-                    Unlock the doors to a world of endless possibilities. Browse
-                    our extensive collection of books, journals, and digital
-                    resources to satisfy your thirst for knowledge.
-                  </p>
-                  <div>
-                    <Button className="bg-white text-primary fw-bold me-2 ">
-                      Start Browsing
-                    </Button>
-                    <Button>Join now</Button>
-                  </div>
-                </div>
-                <div className="w-50">
-                  <img
-                    className="d-block w-100"
-                    style={{ objectFit: "cover", maxHeight: "400px" }}
-                    src="https://prh.imgix.net/articles/secondarypicks20.jpg"
-                    alt="First slide"
-                  />
-                </div>
-              </div>
-            </Carousel.Item>
+            <p>
+              Unlock the doors to a world of endless possibilities. Browse our
+              extensive collection of books, journals, and digital resources to
+              satisfy your thirst for knowledge.
+            </p>
+            <div>
+              <Button className="bg-white text-primary fw-bold me-2 ">
+                Start Browsing
+              </Button>
+              <Button>Join now</Button>
+            </div>
+          </Col>
 
-            <Carousel.Item>
-              <div className="d-flex align-items-center">
-                <div className="w-75">
-                  <img
-                    className="d-block w-100"
-                    style={{ objectFit: "cover", maxHeight: "400px" }}
-                    src="https://prh.imgix.net/articles/secondarypicks20.jpg"
-                    alt="Second slide"
-                  />
-                </div>
-                <div className="d-flex flex-column p-5 w-25">
-                  <h3>Empowering Knowledge</h3>
-                  <p>
-                    "Expand your knowledge with our diverse collection of books,
-                    journals, and digital resources. Start your journey today!"
-                  </p>
-                  <Button>Discover More</Button>
-                </div>
-              </div>
-            </Carousel.Item>
-          </Carousel>
+          <Col>
+            <Carousel className=" d-flex  align-items-center text-dark">
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  style={{ objectFit: "cover", maxHeight: "400px" }}
+                  src="https://prh.imgix.net/articles/secondarypicks20.jpg"
+                  alt="Second slide"
+                />
+              </Carousel.Item>
+
+              <Carousel.Item>
+                <img
+                  className="d-block w-100"
+                  style={{ objectFit: "cover", maxHeight: "400px" }}
+                  src="https://prh.imgix.net/articles/secondarypicks20.jpg"
+                  alt="Second slide"
+                />
+              </Carousel.Item>
+            </Carousel>
+          </Col>
         </Row>
 
         <Row className="mb-4">
@@ -114,8 +88,8 @@ const HomePage = () => {
           </h3>
         </Row>
 
-        <Row>
-          <Col className="d-flex justify-content-between mt-5">
+        {/* <Row>
+          <Col className="d-flex justify-content-around mt-5">
             <label htmlFor="">{searchedBooks.length} books found!</label>
             <div>
               <Form.Control
@@ -124,14 +98,18 @@ const HomePage = () => {
               />
             </div>
           </Col>
-        </Row>
+        </Row> */}
         <hr />
         <Row className="mb-4">
           <Col className="d-flex justify-content-between flex-wrap">
             {searchedBooks.map(
               (book) =>
                 book.status === "active" && (
-                  <Link key={book._id} to={"/book/" + book._id}>
+                  <Link
+                    key={book._id}
+                    to={"/book/" + book._id}
+                    className="text-decoration-none"
+                  >
                     <CustomCard {...book} />
                   </Link>
                 )

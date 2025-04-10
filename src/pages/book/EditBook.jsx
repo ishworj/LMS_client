@@ -21,7 +21,6 @@ const EditBook = () => {
 
   // State to store the image preview
   const [imagePreview, setImagePreview] = useState("");
-  console.log(imagePreview);
 
   // update selectedBook
   useEffect(() => {
