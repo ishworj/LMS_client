@@ -7,7 +7,8 @@ export const loginAction = (form, navigate) => async (dispatch) => {
   // call the login api
   const data = await loginApi({ ...form });
 
-  if (data.status == "success") {
+  if (data.status === "success") {
+    toast.success("Login Successfull");
     // update user store
     dispatch(setUser(data.user));
     // update session storage for access
@@ -16,6 +17,15 @@ export const loginAction = (form, navigate) => async (dispatch) => {
     localStorage.setItem("refreshJWT", data.refreshToken);
 
     navigate("/dashboard");
+  } else {
+    // check for specific error message
+    if (data.message && data.message.toLowerCase().includes("not verified")) {
+      toast.error(
+        "User is not verified. Please check your email for verification."
+      );
+    } else {
+      toast.error("User not found or incorrect credentials.");
+    }
   }
 };
 
@@ -46,18 +56,14 @@ export const autoLogin = () => async (dispatch) => {
 // update profile
 
 export const updateUserAciton = (userObj) => async (dispatch) => {
+  const pending = updateUserApi(userObj);
+  toast.promise(pending, {
+    pending: "Please wait ...",
+  });
 
-    const pending = updateUserApi(userObj);
-    toast.promise(pending, {
-      pending: "Please wait ..."
-    });
-  
-    const { status, message,user } = await pending;
-    toast[status](message);
+  const { status, message, user } = await pending;
+  toast[status](message);
   if (status == "success") {
     dispatch(setUser(user));
   }
 };
-
-
-

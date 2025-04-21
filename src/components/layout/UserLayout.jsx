@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import { UserSidebar } from "./UserSidebar";
 import { useSelector } from "react-redux";
 import { useState } from "react";
-import AiModal from "../../modals/AiModal";
+// import AiModal from "../../modals/AiModal";
 
 export const UserLayout = ({ children, pageTitle }) => {
    const [showModal, setShowModal] = useState(false);
@@ -37,15 +37,15 @@ export const UserLayout = ({ children, pageTitle }) => {
         {/* footer  */}
         <Footer />
       </div>
-      <div
+      {/* <div
         className="border rounded-circle  p-1 position-fixed"
         style={{ width: "50px", bottom: "100px", right: "100px" }}
         onClick={() => setShowModal(true)}
       >
         <Image src="/ai.png" fluid />
-      </div>
+      </div> */}
 
-      <AiModal showModal={showModal} setShowModal={setShowModal} />
+      {/* <AiModal showModal={showModal} setShowModal={setShowModal} /> */}
     </AuthRoute>
   );
 };

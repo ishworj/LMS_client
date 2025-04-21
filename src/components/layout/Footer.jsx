@@ -11,16 +11,13 @@ const Footer = () => {
           <Col>
             <h5>Links</h5>
             <ul className="list-unstyled">
-              <li>New Books</li>
-              <li>Search Books</li>
-              <li>Featured Books</li>
               <li>Sign In</li>
               <li>Sign Up</li>
             </ul>
           </Col>
 
           <Col>
-            <h5>find us here </h5>
+            <h5>Find Us Here </h5>
             <div className="embed-responsive embed-responsive-16by9">
               <iframe
                 className="embed-responsive-item"

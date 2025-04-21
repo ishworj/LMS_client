@@ -4,10 +4,12 @@ import { userSignupInput } from "../../assets/form-data/UserAuthInput";
 import CustomInput from "../custom-input/CustomInput";
 import useForm from "../../hooks/useForm.js";
 import { apiProcessor } from "../../helper/axiosHelper.js";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const authEp = import.meta.env.VITE_APP_ROOT_URL + "/auth";
+import { toast } from "react-toastify";
 
 const UserSignupForm = () => {
+  const navigate = useNavigate();
   const { form, handleOnChange } = useForm({});
 
   const handleOnSubmit = async (e) => {
@@ -21,8 +23,13 @@ const UserSignupForm = () => {
     });
 
     if (data.status == "success") {
-  alert("user created you may login now")
+   toast.success("User Created succcessfully ")
+   navigate('/signin')
     }
+ if (data.status == "error") {
+   toast.error(data.message);
+ }
+
   };
   return (
     <>

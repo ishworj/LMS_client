@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Container from "react-bootstrap/esm/Container";
 import Carousel from "react-bootstrap/Carousel";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CustomCard } from "../../components/custom-card/CustomCard";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import NewArrivals from "./NewArrivals";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const bookStore = useSelector((state) => state.books);
   const [searchedBooks, setSearchBooks] = useState([]);
 
@@ -42,10 +43,7 @@ const HomePage = () => {
               satisfy your thirst for knowledge.
             </p>
             <div>
-              <Button className="bg-white text-primary fw-bold me-2 ">
-                Start Browsing
-              </Button>
-              <Button>Join now</Button>
+              <Button onClick={() => navigate("/signup")}>Join now</Button>
             </div>
           </Col>
 

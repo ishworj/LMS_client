@@ -80,7 +80,7 @@ const AboutUs = () => {
               <div className="d-flex flex-column align-items-center text-center">
                 <img
                   src="https://plus.unsplash.com/premium_photo-1689568126014-06fea9d5d341?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="John Doe"
+  
                   className="rounded-circle mb-3"
                   style={{
                     width: "100px",
@@ -88,7 +88,7 @@ const AboutUs = () => {
                     objectFit: "cover",
                   }}
                 />
-                <h5>John Doe</h5>
+                <h5>Sailesh Magar</h5>
                 <p className="w-75 mx-auto">
                   This library has been a great resource for me. The staff is
                   helpful, and the selection of books is amazing!
@@ -100,7 +100,6 @@ const AboutUs = () => {
               <div className="d-flex flex-column align-items-center text-center">
                 <img
                   src="https://plus.unsplash.com/premium_photo-1690407617542-2f210cf20d7e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OXx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D"
-                  alt="Jane Smith"
                   className="rounded-circle mb-3"
                   style={{
                     width: "100px",
@@ -108,7 +107,7 @@ const AboutUs = () => {
                     objectFit: "cover",
                   }}
                 />
-                <h5>Jane Smith</h5>
+                <h5>Ishwori Karki</h5>
                 <p className="w-75 mx-auto">
                   I love the peaceful environment and the wide variety of books.
                   It’s my go-to place for studying and relaxing.
